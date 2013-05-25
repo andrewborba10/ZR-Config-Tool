@@ -1,0 +1,135 @@
+/**
+ * File: zrconfigtool.css
+ * Author: Andrew Borba
+ * Description: Style sheet for the ZR Config Tool.
+ */
+
+/*Global styles -----------------------------------------------------------------------------------------------------------*/
+
+html {
+	background: #000;
+}
+
+body {
+	width: 60%;
+	margin: 0 auto;
+	background: #000;
+	color: #fff;
+	font: 100% Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	font-style:normal;
+}
+
+/*header styles*/
+
+header {
+	height: 165px;
+	background: url(../_images/zrlogo.png) no-repeat left center, #666;
+	overflow: hidden;
+	margin-bottom: 0.5em;
+}
+
+header h1 {
+	color: #000;
+	font-family: Courier;
+	font-size: 3em;
+	font-weight: normal;
+	text-transform: uppercase;
+	padding-top: 100px;
+	padding-left: 450px;
+}
+
+section h1, section h2, section h3 {
+	color: black;
+	font-family: Impact, Charcoal, sans-serif;
+	letter-spacing: 0.2em;
+	font-weight: normal;
+	font-style: normal;
+}
+
+section h1 {
+	font-size: 2em;
+}
+
+section h2 {
+	font-size: 1.6em;
+}
+
+/*Section styles ------------------------------------------------------------------------------------------------------------*/
+
+section {
+	background: black;
+	margin: 0px;
+}
+
+section h1 {
+	color: white;
+	font-size: 1.8em;
+	margin: 20px 0px;
+	border-bottom: 1px solid #550000;
+}
+
+section a, a:visited {
+	color: black;
+	text-decoration: none;
+	font-weight: bold;
+	-o-transition:.5s;
+	-ms-transition:.5s;
+	-moz-transition:.5s;
+	-webkit-transition:.5s;
+	transition:.5s;
+}
+
+section a:hover
+{
+	color: #550000;
+}
+
+section#zombieClasses {
+
+}
+
+section#humanClasses {
+
+}
+
+/*Header styles --------------------------------------------------------------------------------------------------------------------*/
+
+section article {
+	background: #666;
+	margin: 0em 2em;
+	padding: 30px;
+}
+
+section article h2 {
+	margin-bottom: 20px;
+	border-bottom: 1px solid black;
+}
+
+/*Option styles ---------------------------------------------------------------------------------------------------------------------*/
+
+.option {
+	color: black;
+	margin: 20px 0px;
+}
+
+.optionLabel {
+	font-weight: bold;
+	font-size: 1em;
+	margin: 0px 20px;
+	float: left;
+}
+
+.optionInput {
+	float: left;
+	clear: right;
+	margin: 0px;
+}
+
+.optionCaption {
+	color: #550000;
+	font-size: 0.8em;
+	font-style: italic;
+	clear: left;
+	margin: 0px 20px;
+}

@@ -20,6 +20,16 @@ body {
 	font-style:normal;
 }
 
+a {
+	color: black;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #333;
+}
+
 /*header styles*/
 
 header {
@@ -72,9 +82,6 @@ section h1 {
 	margin: 20px 0px;
 }
 
-section#zombieClasses {
-}
-
 section#zombieClasses h1 {
 	-o-text-stroke-width: 2px #550000;
 	-ms-text-stroke-width: 2px #550000;
@@ -96,36 +103,20 @@ section h3 {
 	border-bottom: 1px solid black;
 }
 
-section a {
-	color: black;
-	text-decoration: none;
-	font-weight: bold;
-	-o-transition:.5s;
-	-ms-transition:.5s;
-	-moz-transition:.5s;
-	-webkit-transition:.5s;
-	transition:.5s;
-}
+/* Article styles */
 
-section a:hover
-{
-	color: #550000;
-}
-
-/*Header styles --------------------------------------------------------------------------------------------------------------------*/
-
-section article {
+article {
 	background: #666;
 	margin: 30px;
 	padding: 0px 30px;
 }
 
-section#zombieClasses article {
+#zombieClasses article {
 	border: 1px solid #550000;
 	border-top: 2em solid #550000;
 }
 
-section#humanClasses article {
+#humanClasses article {
 	border: 1px solid #000055;
 	border-top: 2em solid #000055;
 }
@@ -189,11 +180,20 @@ footer p {
 
 .configSectionLabel
 {
+	margin: 20px 0px;
 	-o-transition:.5s;
 	-ms-transition:.5s;
 	-moz-transition:.5s;
 	-webkit-transition:.5s;
 	transition:.5s;
+}
+
+#zombieClasses .configSectionLabel:hover {
+	color: #550000;
+}
+
+#humanClasses .configSectionLabel:hover {
+	color: #000055;
 }
 
 .option {
@@ -219,27 +219,16 @@ footer p {
 	clear: left;
 }
 
+#zombieClasses .optionCaption {
+	color: #550000;
+}
+
+#humanClasses .optionCaption {
+	color: #000055;
+}
+
 /* Accordion styles ---------------------------------------------------------------------------------------------------------------------*/
 
 .accordion h2, .accordion h3 {
 	cursor: pointer;
 }
-
-/* Color styles */
-
-.zombieRed {
-	color: #550000;
-}
-
-.zombieRedHover:hover {
-	color: #550000;
-}
-
-.humanBlue {
-	color: #000055;
-}
-
-.humanBlueHover:hover {
-	color: #000055;
-}
-

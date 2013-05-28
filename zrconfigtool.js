@@ -61,12 +61,12 @@ function createZombieClass() {
 */
 
 	/* Clone the template zombie article and change ID */
-	$('#zombieClassTemplate').clone(true).attr('id', '').addClass('zombieClass' + totalZombieClasses++).appendTo('#zombieClasses');
+	$('#zombieClassTemplate').clone(true).attr('id', 'zombieClass' + totalZombieClasses++).appendTo('#zombieClasses .accordion');
 }
 
 function createHumanClass() {
 		/* Clone the template zombie article and change ID */
-	$('#humanClassTemplate').clone(true).attr('id', '').addClass('humanClass' + totalHumanClasses++).appendTo('#humanClasses');
+	$('#humanClassTemplate').clone(true).attr('id', 'humanClass' + totalHumanClasses++).appendTo('#humanClasses .accordion');
 }
 
 /**

@@ -72,6 +72,9 @@ section h1 {
 	margin: 20px 0px;
 }
 
+section#zombieClasses {
+}
+
 section#zombieClasses h1 {
 	-o-text-stroke-width: 2px #550000;
 	-ms-text-stroke-width: 2px #550000;
@@ -113,7 +116,7 @@ section a:hover
 
 section article {
 	background: #666;
-	margin: 0px 20px;
+	margin: 30px;
 	padding: 0px 30px;
 }
 
@@ -127,53 +130,116 @@ section#humanClasses article {
 	border-top: 2em solid #000055;
 }
 
+/*Footer styles */
+
+footer {
+    background: #666;
+}
+
+footer p {
+    color: black;
+    font-size: 70%;
+    font-family: tahoma, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+}
+
 
 /*Option styles ---------------------------------------------------------------------------------------------------------------------*/
+
+#zombieClassTemplate {
+	display: none;
+}
+
+#humanClassTemplate {
+	display: none;
+}
 
 .classContent {
 	margin: 1em 1em;
 }
 
 .classNameLabel {
-	color: white;
 	font-family: Impact, Charcoal, sans-serif;
 	letter-spacing: 0.2em;
 	text-align: center;
 	margin-top: -1.3em;
 }
 
-.configSectionLabel {
+.zombieEmptyClassNameLabel {
+	color: #aa3333;
+	font-style: italic;
+}
+
+.humanEmptyClassNameLabel {
+	color: #3333aa;
+	font-style: italic;
+}
+
+.zombieClassNameLabel {
+	color: white;
+	font-style: normal;
+}
+
+.humanClassNameLabel {
+	color: white;
+	font-style: normal;
+}
+
+.configSectionLabel
+{
+	-o-transition:.5s;
+	-ms-transition:.5s;
+	-moz-transition:.5s;
+	-webkit-transition:.5s;
+	transition:.5s;
 }
 
 .option {
 	color: black;
-	margin: 20px 0px;
+	margin: 20px 20px;
 }
 
 .optionLabel {
 	font-weight: bold;
 	font-size: 1em;
-	margin: 0px 20px;
 	float: left;
 }
 
 .optionInput {
 	float: left;
 	clear: right;
-	margin: 0px;
+	margin: 0px 10px 5px;
 }
 
 .optionCaption {
-	color: #550000;
 	font-size: 0.8em;
 	font-style: italic;
 	clear: left;
-	margin: 0px 20px;
 }
 
 /* Accordion styles ---------------------------------------------------------------------------------------------------------------------*/
 
 .accordion h2, .accordion h3 {
 	cursor: pointer;
+}
+
+/* Color styles */
+
+.zombieRed {
+	color: #550000;
+}
+
+.zombieRedHover:hover {
+	color: #550000;
+}
+
+.humanBlue {
+	color: #000055;
+}
+
+.humanBlueHover:hover {
+	color: #000055;
 }
 

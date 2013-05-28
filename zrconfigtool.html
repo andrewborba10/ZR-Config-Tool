@@ -6,12 +6,12 @@ Author: Andrew Borba
 Description: Main web page for the ZR Config Tool.
 -->
 
-<html lang="en">
+<html lang='en'>
 <head>
-	<meta charset="UTF-8" /> 
+	<meta charset='UTF-8' /> 
 	<title> ZR Config Tool </title>
-	<link rel="stylesheet" type="text/css" href="_css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="_css/zrconfigtool.css" />
+	<link rel='stylesheet' type='text/css' href='_css/reset.css' />
+	<link rel='stylesheet' type='text/css' href='_css/zrconfigtool.css' />
 </head>
 	
 <body>
@@ -19,244 +19,251 @@ Description: Main web page for the ZR Config Tool.
 		<h1> Config Tool </h1>
 	</header>
 
-	<form id="configDetailsForm" onsubmit="" method="post">
-		<section id="zombieClasses">
+	<form id='configDetailsForm' onsubmit='' method='post'>
+		<section id='zombieClasses'>
 			<!--
 			<h1> Presets </h1>
 			<div>
-			<div class="option">
-				<p class="optionLabel"> Select a preset: </p>
-				<select id="presets" class="optionInput">
-					<option value="class"> Classic </option>
+			<div class='option'>
+				<p class='optionLabel'> Select a preset: </p>
+				<select id='presets' class='optionInput'>
+					<option value='class'> Classic </option>
 				</select>
-				<p class="optionCaption"> Caution: All changes will be overwritten upon selection of a preset. </p>
+				<p class='optionCaption'> Caution: All changes will be overwritten upon selection of a preset. </p>
 			</div>
 			</div>
-			<-->
+			-->
 
 			<h1> Zombie Classes </h1>
 
 			<div class='accordion'>
-			<article id="zombieClass1">
-				<h2 class='classNameLabel'>Classname</h2>
-				<div>
-					<h3 class="configSectionLabel"> General </h3>
+				<article id='zombieClassTemplate' hidden=true>
+					<h2 class='classNameLabel zombieEmptyClassNameLabel'> (Empty Class) </h2>
 					<div>
-						<div class="option">
-						<p class="optionLabel"> Name: </p>
-						    <input type="text" class="optionInput" name="name" placeholder="Name" style="width: 175px;" maxlength=64 required />
-						<p class="optionCaption"> Display name of this ZR class. </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Description: </p>
-						    <input type="text" class="optionInput" name="description" placeholder="Brief description" style="width: 500px;" maxlength=256 required />
-						<p class="optionCaption">  Brief description of the class (shown in class selection menu) </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Enabled: </p>
-						<div class="optionInput">
-						    <p> Yes <input type="radio" name="enabled" value="yes" checked autofocus /> &nbsp;
-						        No <input type="radio" name="enabled" value="no" />
-						    </p>
-						</div>
-						<p class="optionCaption"> Enable the class for use. </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Default: </p>
-						<div class="optionInput">
-						    <p> Yes <input type="radio" name="default" value="yes" /> &nbsp;
-						        No <input type="radio" name="default" value="no" checked />
-						    </p>
-						</div>
-						<p class="optionCaption"> Default class for new players on this team, which implies at least one class from each team must be marked 'Yes' </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Flags: </p>
-						<div class="optionInput">
-						    <p> Mother Zombie <input type="checkbox" name="motherzombie" /> &nbsp;
-						        Admin-Only <input type="checkbox" name="adminonly" />
-						    </p>
-						</div>
-						<p class="optionCaption"> Check the flags that apply to this class. </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> SourceMod Group: </p>
-						    <input type="text" class="optionInput" name="group" placeholder="Group defined in SM configs" style="width: 175px;" maxlength=64 required />
-						<p class="optionCaption"> Enter a SourceMod-defined group (in sourcemod/configs) to make the class exclusive to this group. </p>
-						</div>
-					</div>
-				
-					<h3 class="configSectionLabel"> Model </h3>
-					<div>
-						<div class="option">
-						<p class="optionLabel"> Model Path: </p>
-					    <input type="text" class="optionInput" name="modelpath" placeholder="models/player/..." style="width: 300px;" maxlength=256 required />
-						<p class="optionCaption"> Path to player model relative to the models/ folder. </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Initial Alpha </p>
-						<div class="optionInput">
-					    <input type="range" name="initialalpha" min=0 max=255 value=255 /> <span id="initialalphavalue">0</span>
-						</div>
-						<p class="optionCaption"> Initial alpha value of the player. (0 = fully invisible, 255 = fully visible) </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Damaged Alpha </p>
-						<div class="optionInput">
-					    <input type="range" name="damagedalpha" min=0 max=255 value=255 /> <span id="damagedalphavalue">0</span>
-						</div>
-						<p class="optionCaption"> Alpha of a damaged player.  (See 'Damage Value' for definition of a 'damaged player') </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Damage Value </p>
-							<div class="optionInput">
-						    <input type="range" name="damagevalue" min=0 max=255 value=255 /> <span id="damagevaluevalue">0</span>
+						<h3 class='configSectionLabel zombieRedHover'> General </h3>
+						<div>
+							<div class='option'>
+							<p class='optionLabel'> Name: </p>
+							    <input type='text' class='className optionInput' name='name' placeholder='Name' style='width: 175px;' maxlength=64 required />
+							<p class='optionCaption zombieRed'> Name of this class. </p>
 							</div>
-						<p class="optionCaption"> Amount of damage done for a player to become 'damaged' </p>
+
+							<div class='option'>
+							<p class='optionLabel'> Description: </p>
+							    <input type='text' class='optionInput' name='description' placeholder='Brief description' style='width: 500px;' maxlength=256 required />
+							<p class='optionCaption zombieRed'>  Brief description of the class (shown in class selection menu) </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Enabled: </p>
+							<div class='optionInput'>
+							    <p> Yes <input type='radio' name='enabled' value='yes' checked /> &nbsp;
+							        No <input type='radio' name='enabled' value='no' />
+							    </p>
+							</div>
+							<p class='optionCaption zombieRed'> Enable the class for use. </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Default: </p>
+							<div class='optionInput'>
+							    <p> Yes <input type='radio' name='default' value='yes' /> &nbsp;
+							        No <input type='radio' name='default' value='no' checked />
+							    </p>
+							</div>
+							<p class='optionCaption zombieRed'> Default zombie class for new players. (At least one must be 'Yes') </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Flags: </p>
+							<div class='optionInput'>
+							    <p> Mother Zombie <input type='checkbox' name='motherzombie' /> &nbsp;
+							        Admin-Only <input type='checkbox' name='adminonly' />
+							    </p>
+							</div>
+							<p class='optionCaption zombieRed'> Check the flags that apply to this class. </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> SourceMod Group: </p>
+							    <input type='text' class='optionInput' name='group' placeholder='Group defined in SM configs' style='width: 175px;' maxlength=64 required />
+							<p class='optionCaption zombieRed'> Enter a SourceMod-defined group (in sourcemod/configs) to make the class exclusive to this group. </p>
+							</div>
+						</div>
+					
+						<h3 class='configSectionLabel zombieRedHover'> Model </h3>
+						<div>
+							<div class='option'>
+							<p class='optionLabel'> Model Path: </p>
+						    <input type='text' class='optionInput' name='modelpath' placeholder='models/player/...' style='width: 300px;' maxlength=256 required />
+							<p class='optionCaption zombieRed'> Path to player model relative to the models/ folder. </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Initial Alpha </p>
+							<div class='optionInput'>
+						    <input type='range' name='initialalpha' min=0 max=255 value=255 />
+							</div>
+							<p class='optionCaption zombieRed'> Initial alpha value of the player. (0 = fully invisible, 255 = fully visible) </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Damaged Alpha </p>
+							<div class='optionInput'>
+						    <input type='range' name='damagedalpha' min=0 max=255 value=255 />
+							</div>
+							<p class='optionCaption zombieRed'> Alpha of a damaged player.  (See 'Damage Value' for definition of a 'damaged player') </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Damage Value </p>
+								<div class='optionInput'>
+							    <input type='range' name='damagevalue' min=0 max=255 value=255 />
+								</div>
+							<p class='optionCaption zombieRed'> Amount of damage done for a player to become 'damaged' </p>
+							</div>
+						</div>
+
+						<h3 class='configSectionLabel zombieRedHover'> HUD </h3>
+						<div>
+							<p>Placeholder</p>
+						</div>
+
+						<h3 class='configSectionLabel zombieRedHover'> Effects </h3>
+						<div>
+							<p>Placeholder</p>
+						</div>
+						
+						<h3 class='configSectionLabel zombieRedHover'> Player Behavior </h3>
+						<div>
+							<p>Placeholder</p>
 						</div>
 					</div>
-
-					<h3 class="configSectionLabel"> HUD </h3>
-					<div>
-						<p>Placeholder</p>
-					</div>
-
-					<h3 class="configSectionLabel"> Effects </h3>
-					<div>
-						<p>Placeholder</p>
-					</div>
-					
-					<h3 class="configSectionLabel"> Player Behavior </h3>
-					<div>
-						<p>Placeholder</p>
-					</div>
-				</div>
-			</article>
+				</article>
 			</div>
 		</section>
 
-		<section id="humanClasses">
+		<section id='humanClasses'>
 
 			<h1> Human Classes </h1>
 
 			<div class='accordion'>
-			<article id="humanClass1">
-				<h2 class='classNameLabel'>Classname</h2>
-				<div>
-					<h3 class="configSectionLabel"> General </h3>
+				<article id='humanClassTemplate'>
+					<h2 class='classNameLabel humanEmptyClassNameLabel'> (Empty Class) </h2>
 					<div>
-						<div class="option">
-						<p class="optionLabel"> Name: </p>
-						    <input type="text" class="optionInput" name="name" placeholder="Name" style="width: 175px;" maxlength=64 required />
-						<p class="optionCaption"> Display name of this ZR class. </p>
+						<h3 class='configSectionLabel humanBlueHover'> General </h3>
+						<div>
+							<div class='option'>
+							<p class='optionLabel'> Name: </p>
+							    <input type='text' class='className optionInput' name='name' placeholder='Name' style='width: 175px;' maxlength=64 required />
+							<p class='optionCaption humanBlue'> Name of this class. </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Description: </p>
+							    <input type='text' class='optionInput' name='description' placeholder='Brief description' style='width: 500px;' maxlength=256 required />
+							<p class='optionCaption humanBlue'>  Brief description of the class (shown in class selection menu) </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Enabled: </p>
+							<div class='optionInput'>
+							    <p> Yes <input type='radio' name='enabled' value='yes' checked autofocus /> &nbsp;
+							        No <input type='radio' name='enabled' value='no' />
+							    </p>
+							</div>
+							<p class='optionCaption humanBlue'> Enable the class for use. </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Default: </p>
+							<div class='optionInput'>
+							    <p> Yes <input type='radio' name='default' value='yes' /> &nbsp;
+							        No <input type='radio' name='default' value='no' checked />
+							    </p>
+							</div>
+							<p class='optionCaption humanBlue'> Default human class for new players. (At least one must be 'Yes')  </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Flags: </p>
+							<div class='optionInput'>
+							    <p> Mother Zombie <input type='checkbox' name='motherzombie' /> &nbsp;
+							        Admin-Only <input type='checkbox' name='adminonly' />
+							    </p>
+							</div>
+							<p class='optionCaption humanBlue'> Check the flags that apply to this class. </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> SourceMod Group: </p>
+							    <input type='text' class='optionInput' name='group' placeholder='Group defined in SM configs' style='width: 175px;' maxlength=64 required />
+							<p class='optionCaption humanBlue'> Enter a SourceMod-defined group (in sourcemod/configs) to make the class exclusive to this group. </p>
+							</div>
 						</div>
 
-						<div class="option">
-						<p class="optionLabel"> Description: </p>
-						    <input type="text" class="optionInput" name="description" placeholder="Brief description" style="width: 500px;" maxlength=256 required />
-						<p class="optionCaption">  Brief description of the class (shown in class selection menu) </p>
+						<h3 class='configSectionLabel humanBlueHover'> Model </h3>
+						<div>
+							<div class='option'>
+							<p class='optionLabel'> Model Path: </p>
+						    <input type='text' class='optionInput' name='modelpath' placeholder='models/player/...' style='width: 300px;' maxlength=256 required />
+							<p class='optionCaption humanBlue'> Path to player model relative to the models/ folder. </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Initial Alpha </p>
+							<div class='optionInput'>
+						    <input type='range' name='initialalpha' min=0 max=255 value=255 />
+							</div>
+							<p class='optionCaption humanBlue'> Initial alpha value of the player. (0 = fully invisible, 255 = fully visible) </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Damaged Alpha </p>
+							<div class='optionInput'>
+						    <input type='range' name='damagedalpha' min=0 max=255 value=255 />
+							</div>
+							<p class='optionCaption humanBlue'> Alpha of a damaged player.  (See 'Damage Value' for definition of a 'damaged player') </p>
+							</div>
+
+							<div class='option'>
+							<p class='optionLabel'> Damage Value </p>
+							<div class='optionInput'>
+						    <input type='range' name='damagevalue' min=0 max=255 value=255 />
+							</div>
+							<p class='optionCaption humanBlue'> Amount of damage done for a player to become 'damaged' </p>
+							</div>
 						</div>
 
-						<div class="option">
-						<p class="optionLabel"> Enabled: </p>
-						<div class="optionInput">
-						    <p> Yes <input type="radio" name="enabled" value="yes" checked autofocus /> &nbsp;
-						        No <input type="radio" name="enabled" value="no" />
-						    </p>
-						</div>
-						<p class="optionCaption"> Enable the class for use. </p>
+						<h3 class='configSectionLabel humanBlueHover'> HUD </h3>
+						<div>
+							<p>Placeholder</p>
 						</div>
 
-						<div class="option">
-						<p class="optionLabel"> Default: </p>
-						<div class="optionInput">
-						    <p> Yes <input type="radio" name="default" value="yes" /> &nbsp;
-						        No <input type="radio" name="default" value="no" checked />
-						    </p>
+						<h3 class='configSectionLabel humanBlueHover'> Effects </h3>
+						<div>
+							<p>Placeholder</p>
 						</div>
-						<p class="optionCaption"> Default class for new players on this team, which implies at least one class from each team must be marked 'Yes' </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Flags: </p>
-						<div class="optionInput">
-						    <p> Mother Zombie <input type="checkbox" name="motherzombie" /> &nbsp;
-						        Admin-Only <input type="checkbox" name="adminonly" />
-						    </p>
-						</div>
-						<p class="optionCaption"> Check the flags that apply to this class. </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> SourceMod Group: </p>
-						    <input type="text" class="optionInput" name="group" placeholder="Group defined in SM configs" style="width: 175px;" maxlength=64 required />
-						<p class="optionCaption"> Enter a SourceMod-defined group (in sourcemod/configs) to make the class exclusive to this group. </p>
+						
+						<h3 class='configSectionLabel humanBlueHover'> Player Behavior </h3>
+						<div>
+							<p>Placeholder</p>
 						</div>
 					</div>
-
-					<h3 class="configSectionLabel"> Model </h3>
-					<div>
-						<div class="option">
-						<p class="optionLabel"> Model Path: </p>
-					    <input type="text" class="optionInput" name="modelpath" placeholder="models/player/..." style="width: 300px;" maxlength=256 required />
-						<p class="optionCaption"> Path to player model relative to the models/ folder. </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Initial Alpha </p>
-						<div class="optionInput">
-					    <input type="range" name="initialalpha" min=0 max=255 value=255 /> <span id="initialalphavalue">0</span>
-						</div>
-						<p class="optionCaption"> Initial alpha value of the player. (0 = fully invisible, 255 = fully visible) </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Damaged Alpha </p>
-						<div class="optionInput">
-					    <input type="range" name="damagedalpha" min=0 max=255 value=255 /> <span id="damagedalphavalue">0</span>
-						</div>
-						<p class="optionCaption"> Alpha of a damaged player.  (See 'Damage Value' for definition of a 'damaged player') </p>
-						</div>
-
-						<div class="option">
-						<p class="optionLabel"> Damage Value </p>
-						<div class="optionInput">
-					    <input type="range" name="damagevalue" min=0 max=255 value=255 /> <span id="damagevaluevalue">0</span>
-						</div>
-						<p class="optionCaption"> Amount of damage done for a player to become 'damaged' </p>
-						</div>
-					</div>
-
-					<h3 class="configSectionLabel"> HUD </h3>
-					<div>
-						<p>Placeholder</p>
-					</div>
-
-					<h3 class="configSectionLabel"> Effects </h3>
-					<div>
-						<p>Placeholder</p>
-					</div>
-					
-					<h3 class="configSectionLabel"> Player Behavior </h3>
-					<div>
-						<p>Placeholder</p>
-					</div>
-				</div>
-			</article>
+				</article>
 			</div>
 		</section>
 
 	</form>
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script src="zrconfigtool.js"></script>
+
+	<footer>
+    <p>
+        Copyright &copy; 2013 Andrew Borba
+    </p>
+	</footer>
+
+	<script src='http://code.jquery.com/jquery-1.9.1.js'></script>
+	<script src='http://code.jquery.com/ui/1.10.3/jquery-ui.js'></script>
+	<script src='zrconfigtool.js'></script>
 </body>
 </html>

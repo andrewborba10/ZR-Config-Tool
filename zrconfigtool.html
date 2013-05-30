@@ -43,32 +43,34 @@ Description: Main web page for the ZR Config Tool.
 						<h3 class='configSectionLabel'> General </h3>
 						<div>
 							<div class='option'>
-							<p class='optionLabel'> Name: </p>
-							    <input type='text' class='className optionInput' name='name' placeholder='Name' style='width: 175px;' maxlength=64 required />
-							<p class='optionCaption'> Name of this class. </p>
+								<p class='optionLabel'> Name: </p>
+								<input type='text' class='className optionInput' name='name#' placeholder='Name' style='width: 175px;' maxlength=64 required />
+								<p class='optionCaption'> Name of this class. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Description: </p>
-							    <input type='text' class='optionInput' name='description' placeholder='Brief description' style='width: 500px;' maxlength=256 required />
-							<p class='optionCaption'>  Brief description of the class (shown in class selection menu) </p>
+								<p class='optionLabel'> Description: </p>
+								<input type='text' class='optionInput' name='description#' placeholder='Brief description' style='width: 500px;' maxlength=256 required />
+								<p class='optionCaption'>  Brief description of the class (shown in class selection menu) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Enabled: </p>
-							<div class='optionInput'>
-							    <p> Yes <input type='radio' name='enabled' value='yes' checked /> &nbsp;
-							        No <input type='radio' name='enabled' value='no' />
-							    </p>
-							</div>
-							<p class='optionCaption'> Enable the class for use. </p>
+								<p class='optionLabel'> Enabled: </p>
+								<div class='optionInput'>
+								    <p>
+							    	Yes <input type='radio' name='enabled#' value='yes' checked required /> &nbsp;
+							        No <input type='radio' name='enabled#' value='no' />
+								    </p>
+								</div>
+								<p class='optionCaption'> Enable the class for use. </p>
 							</div>
 
 							<div class='option'>
 							<p class='optionLabel'> Default: </p>
 							<div class='optionInput'>
-							    <p> Yes <input type='radio' name='default' value='yes' /> &nbsp;
-							        No <input type='radio' name='default' value='no' checked />
+							    <p>
+						    	Yes <input type='radio' name='team_default#' value='yes' required /> &nbsp;
+						        No <input type='radio' name='team_default#' value='no' />
 							    </p>
 							</div>
 							<p class='optionCaption'> Default zombie class for new players. (At least one must be 'Yes') </p>
@@ -77,159 +79,167 @@ Description: Main web page for the ZR Config Tool.
 							<div class='option'>
 							<p class='optionLabel'> Flags: </p>
 							<div class='optionInput'>
-							    <p> Mother Zombie <input type='checkbox' name='motherzombie' /> &nbsp;
-							        Admin-Only <input type='checkbox' name='adminonly' />
+							    <p>
+							    Mother Zombie <input type='checkbox' name='motherzombie#' /> &nbsp;
+							    Admin-Only <input type='checkbox' name='adminonly#' />
 							    </p>
 							</div>
 							<p class='optionCaption'> Check the flags that apply to this class. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> SourceMod Group: </p>
-							    <input type='text' class='optionInput' name='group' placeholder='Group defined in SM configs' style='width: 175px;' maxlength=64 required />
-							<p class='optionCaption'> Enter a SourceMod-defined group (in sourcemod/configs) to make the class exclusive to this group. </p>
+								<p class='optionLabel'> SourceMod Group: </p>
+								<input type='text' class='optionInput' name='group#' placeholder='Group defined in SM configs' style='width: 175px;' maxlength=64 />
+								<p class='optionCaption'> Enter a SourceMod-defined group (in sourcemod/configs) to make the class exclusive to this group. </p>
 							</div>
 						</div>
 					
 						<h3 class='configSectionLabel'> Model </h3>
 						<div>
 							<div class='option'>
-							<p class='optionLabel'> Model Path: </p>
-						    <input type='text' class='optionInput' name='modelpath' placeholder='models/player/...' style='width: 300px;' maxlength=256 required />
-							<p class='optionCaption'> Path to player model relative to the models/ folder. </p>
+								<p class='optionLabel'> Model Path: </p>
+							    <input type='text' class='optionInput' name='model_path#' placeholder='models/player/zh/zh_corpse002.mdl' value='models/player/zh/zh_corpse002.mdl' style='width: 300px;' maxlength=256 required />
+								<p class='optionCaption'> Path to player model relative to the models/ folder or other pre-defined option. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details</p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Initial Alpha </p>
-							<div class='optionInput'>
-						    <input type='number' name='initialalpha' min=0 max=255 placeholder=255 />
-							</div>
-							<p class='optionCaption'> Initial alpha value of the player. (0 = fully invisible, 255 = fully visible) </p>
+								<p class='optionLabel'> Model Skin Index: </p>
+							    <input type='number' class='optionInput' name='model_skin_index#' min=0 placeholder=0 value=0 required />
+								<p class='optionCaption'> The model skin index to use if the model support multiple skins. First skin is 0. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details</p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Damaged Alpha </p>
-							<div class='optionInput'>
-						    <input type='number' name='damagedalpha' min=0 max=255 placeholder=255 />
-							</div>
-							<p class='optionCaption'> Alpha of a damaged player.  (See 'Damage Value' for definition of a 'damaged player') </p>
+								<p class='optionLabel'> Initial Alpha </p>
+							    <input type='number' class='optionInput' name='alpha_initial#' min=0 max=255 placeholder=255 value=255 required />
+								<p class='optionCaption'> Initial alpha value of the player. (0 = fully invisible, 255 = fully visible) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Damage Value </p>
-								<div class='optionInput'>
-							    <input type='number' name='damagevalue' min=0 max=255 placeholder=255 />
-								</div>
-							<p class='optionCaption'> Amount of damage done for a player to become 'damaged' </p>
+								<p class='optionLabel'> Damaged Alpha </p>
+						    	<input type='number' class='optionInput' name='alpha_damaged#' min=0 max=255 placeholder=255 value=255 required />
+								<p class='optionCaption'> Alpha of a damaged player.  (See 'Damage Value' for definition of a 'damaged player') </p>
+							</div>
+
+							<div class='option'>
+								<p class='optionLabel'> Alpha Damage Value </p>
+							    <input type='number' class='optionInput' name='alpha_damage#' min=0 max=20000 placeholder=0 value=0 required />
+								<p class='optionCaption'> Amount of damage done for a player to become 'damaged' </p>
 							</div>
 						</div>
 
 						<h3 class='configSectionLabel'> HUD </h3>
 						<div>
 							<div class='option'>
-							<p class='optionLabel'> Overlay Path: </p>
-						    <input type='text' class='optionInput' name='overlaypath' placeholder='' style='width: 300px;' maxlength=256 />
-							<p class='optionCaption'> A path relative to the 'materials' folder to an overlay to be displayed on the player's screen. </p>
+								<p class='optionLabel'> Overlay Path: </p>
+							    <input type='text' class='optionInput' name='overlay_path#' placeholder='overlays/zr/zvision' value='overlays/zr/zvision' style='width: 300px;' maxlength=256 />
+								<p class='optionCaption'> A path relative to the 'materials' folder to an overlay to be displayed on the player's screen. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> NVGs: </p>
-							<div class='optionInput'>
-							    <p> Yes <input type='radio' name='nvgs' value='yes' /> &nbsp;
-							        No <input type='radio' name='nvgs' value='no' checked />
-							    </p>
-							</div>
+								<p class='optionLabel'> NVGs: </p>
+								<div class='optionInput'>
+								    <p>
+								    Yes <input type='radio' name='nvgs#' value='yes' required /> &nbsp;
+								    No <input type='radio' name='nvgs#' value='no' checked />
+								    </p>
+								</div>
 							<p class='optionCaption'> Give and turn on nightvision. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Field of Vision: </p>
-						    <input type='number' class='optionInput' name='fov' min='60' max='120' placeholder='90' />
-							<p class='optionCaption'> Field of vision. (90 is default) </p>
+								<p class='optionLabel'> Field of Vision: </p>
+							    <input type='number' class='optionInput' name='fov#' min=15 max=165 placeholder=90 value=90 required />
+								<p class='optionCaption'> Field of vision. (90 is default) </p>
 							</div>
 						</div>
 
 						<h3 class='configSectionLabel'> Effects </h3>
 						<div>
 							<div class='option'>
-							<p class='optionLabel'> Napalm: </p>
-							<div class='optionInput'>
-							    <p>
-							    	Yes <input type='radio' name='napalm' value='yes' /> &nbsp;
-							        No <input type='radio' name='napalm' value='no' checked />
-							    </p>
-							</div>
-							<p class='optionCaption'> Can be burned by napalm grenades. </p>
-							</div>
-
-							<div class='option'>
-							<p class='optionLabel'> Naplm Burn Time: </p>
-						    <input type='number' class='optionInput' name='napalmburntime' min='0' placeholder='10.0' />
-							<p class='optionCaption'> Burn duration after being hit by napalm grenade. </p>
+								<p class='optionLabel'> Naplm Burn Time: </p>
+							    <input type='number' class='optionInput' name='napalm_time#' min=0 max=600 placeholder=10.0 value=10.0 required />
+								<p class='optionCaption'> Burn duration after being hit by napalm grenade. </p>
 							</div>
 						</div>
-						
+
 						<h3 class='configSectionLabel'> Player Behavior </h3>
 						<div>
 							
 							<div class='option'>
-							<p class='optionLabel'> Immunity Mode: </p>
-						    <input type='text' class='optionInput' name='immunitymode' value='none' placeholder='immunity mode' maxlength=32 />
-							<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+								<p class='optionLabel'> Immunity Mode: </p>
+							    <input type='text' class='optionInput' name='immunity_mode#' placeholder='immunity mode' value='none' maxlength=32 required />
+								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Immunity Amount: </p>
-						    <input type='number' class='optionInput' name='immunityamount' min='0' max='300' placeholder='0' />
-							<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+								<p class='optionLabel'> Immunity Amount: </p>
+							    <input type='number' class='optionInput' name='immunity_amount#' min=0 max=300 placeholder=0 value=0 required />
+								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Health: </p>
-						    <input type='number' class='optionInput' name='health' min='0' max='100000' placeholder='2500' />
-							<p class='optionCaption'> Starting HP of the zombie. </p>
+								<p class='optionLabel'> Immunity Cooldown: </p>
+							    <input type='number' class='optionInput' name='immunity_cooldown#' min=0 max=300 placeholder=0 value=0 required />
+								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Health Regeneration Interval: </p>
-						    <input type='number' class='optionInput' name='healthregeninterval' min='0' max='900' placeholder='0.0' />
-							<p class='optionCaption'> The health regeneration interval, in seconds.  Use 0.0 to disable. </p>
+								<p class='optionLabel'> No Fall Damage: </p>
+								<div class='optionInput'>
+								    <p>
+								    Yes <input type='radio' name='no_fall_damage#' value='yes' checked required /> &nbsp;
+								    No <input type='radio' name='no_fall_damage#' value='no' />
+								    </p>
+								</div>
+								<p class='optionCaption'> Enable this to block damage from falling. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Health Regeneration Amount: </p>
-						    <input type='number' class='optionInput' name='healthregenamount' min='0' max='10000' placeholder='0' />
-							<p class='optionCaption'> How many health points to give per interval.  Regeneration stops when back to starting HP. </p>
+								<p class='optionLabel'> Health: </p>
+							    <input type='number' class='optionInput' name='health#' min=0 max=100000 placeholder=3200 value=3200 required />
+								<p class='optionCaption'> Starting HP. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Health Infect Gain: </p>
-						    <input type='number' class='optionInput' name='healthinfectgain' min='0' max='20000' placeholder='700' />
-							<p class='optionCaption'> How many health points to give the zombie each time it infects a human. </p>
+								<p class='optionLabel'> Health Regeneration Interval: </p>
+							    <input type='number' class='optionInput' name='health_regen_interval#' min=0 max=900 placeholder=0.0 value=0.0 required />
+								<p class='optionCaption'> The health regeneration interval, in seconds.  Use 0.0 to disable. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Speed: </p>
-						    <input type='number' class='optionInput' name='speed' min='-200' max='2000' placeholder='390' />
-							<p class='optionCaption'> Speed of player.  NOTE: This value depends on the speed method defined in the config file. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+								<p class='optionLabel'> Health Regeneration Amount: </p>
+							    <input type='number' class='optionInput' name='health_regen_amount#' min=0 max=10000 placeholder=0 value=0.0 required />
+								<p class='optionCaption'> How many health points to give per interval.  Regeneration stops when back to starting HP. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Knockback: </p>
-						    <input type='number' class='optionInput' name='knockback' min='-30' max='30' placeholder='4' />
-							<p class='optionCaption'> Knockback force multipler. </p>
+								<p class='optionLabel'> Health Infect Gain: </p>
+							    <input type='number' class='optionInput' name='health_infect_gain#' min=0 max=20000 placeholder=700 value=0.0 required />
+								<p class='optionCaption'> How many health points to give the zombie each time it infects a human. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Jump Height: </p>
-						    <input type='number' class='optionInput' name='jumpheight' min='0' max='5' placeholder='1.1' step='0.1' />
-							<p class='optionCaption'> Jump height multipler. </p>
+								<p class='optionLabel'> Speed: </p>
+							    <input type='number' class='optionInput' name='speed#' min=-200 max=2000 placeholder=390 value=390 required />
+								<p class='optionCaption'> Speed of player.  NOTE: This value depends on the speed method defined in the config file. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Jump Distance: </p>
-						    <input type='number' class='optionInput' name='jumpdistance' min='0' max='5' placeholder='1.2' step='0.1' />
-							<p class='optionCaption'> Jump distance multipler. </p>
+								<p class='optionLabel'> Knockback: </p>
+							    <input type='number' class='optionInput' name='knockback#' min=-30 max=30 placeholder=4 value=4 required />
+								<p class='optionCaption'> Knockback force multiplier. </p>
+							</div>
+
+							<div class='option'>
+								<p class='optionLabel'> Jump Height: </p>
+							    <input type='number' class='optionInput' name='jump_height#' min=0 max=5 step=0.1 placeholder=1.1  value=1.1 required />
+								<p class='optionCaption'> Jump height multiplier. </p>
+							</div>
+
+							<div class='option'>
+								<p class='optionLabel'> Jump Distance: </p>
+							    <input type='number' class='optionInput' name='jump_distance#' min=0 max=5 step=0.1 placeholder=1.2 value=1.2 required />
+								<p class='optionCaption'> Jump distance multiplier. </p>
 							</div>
 						</div>
 					</div>
@@ -248,187 +258,200 @@ Description: Main web page for the ZR Config Tool.
 						<h3 class='configSectionLabel'> General </h3>
 						<div>
 							<div class='option'>
-							<p class='optionLabel'> Name: </p>
-							    <input type='text' class='className optionInput' name='name' placeholder='Name' style='width: 175px;' maxlength=64 required />
-							<p class='optionCaption'> Name of this class. </p>
+								<p class='optionLabel'> Name: </p>
+								<input type='text' class='className optionInput' name='name#' placeholder='Name' style='width: 175px;' maxlength=64 required />
+								<p class='optionCaption'> Name of this class. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Description: </p>
-							    <input type='text' class='optionInput' name='description' placeholder='Brief description' style='width: 500px;' maxlength=256 required />
-							<p class='optionCaption'>  Brief description of the class (shown in class selection menu) </p>
+								<p class='optionLabel'> Description: </p>
+								<input type='text' class='optionInput' name='description#' placeholder='Brief description' style='width: 500px;' maxlength=256 required />
+								<p class='optionCaption'>  Brief description of the class (shown in class selection menu) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Enabled: </p>
-							<div class='optionInput'>
-							    <p> Yes <input type='radio' name='enabled' value='yes' checked autofocus /> &nbsp;
-							        No <input type='radio' name='enabled' value='no' />
-							    </p>
-							</div>
-							<p class='optionCaption'> Enable the class for use. </p>
+								<p class='optionLabel'> Enabled: </p>
+								<div class='optionInput'>
+								    <p>
+							    	Yes <input type='radio' name='enabled#' value='yes' checked required /> &nbsp;
+							        No <input type='radio' name='enabled#' value='no' />
+								    </p>
+								</div>
+								<p class='optionCaption'> Enable the class for use. </p>
 							</div>
 
 							<div class='option'>
 							<p class='optionLabel'> Default: </p>
 							<div class='optionInput'>
-							    <p> Yes <input type='radio' name='default' value='yes' /> &nbsp;
-							        No <input type='radio' name='default' value='no' checked />
+							    <p>
+						    	Yes <input type='radio' name='team_default#' value='yes' required /> &nbsp;
+						        No <input type='radio' name='team_default#' value='no' />
 							    </p>
 							</div>
-							<p class='optionCaption'> Default human class for new players. (At least one must be 'Yes')  </p>
+							<p class='optionCaption'> Default human class for new players. (At least one must be 'Yes') </p>
 							</div>
 
 							<div class='option'>
 							<p class='optionLabel'> Flags: </p>
 							<div class='optionInput'>
-							    <p> Mother Zombie <input type='checkbox' name='motherzombie' /> &nbsp;
-							        Admin-Only <input type='checkbox' name='adminonly' />
+							    <p>
+							    Admin-Only <input type='checkbox' name='adminonly#' />
 							    </p>
 							</div>
 							<p class='optionCaption'> Check the flags that apply to this class. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> SourceMod Group: </p>
-							    <input type='text' class='optionInput' name='group' placeholder='Group defined in SM configs' style='width: 175px;' maxlength=64 required />
-							<p class='optionCaption'> Enter a SourceMod-defined group (in sourcemod/configs) to make the class exclusive to this group. </p>
+								<p class='optionLabel'> SourceMod Group: </p>
+								<input type='text' class='optionInput' name='group#' placeholder='Group defined in SM configs' style='width: 175px;' maxlength=64 />
+								<p class='optionCaption'> Enter a SourceMod-defined group (in sourcemod/configs) to make the class exclusive to this group. </p>
 							</div>
 						</div>
-
+					
 						<h3 class='configSectionLabel'> Model </h3>
 						<div>
 							<div class='option'>
-							<p class='optionLabel'> Model Path: </p>
-						    <input type='text' class='optionInput' name='modelpath' placeholder='models/player/...' style='width: 300px;' maxlength=256 required />
-							<p class='optionCaption'> Path to player model relative to the models/ folder. </p>
+								<p class='optionLabel'> Model Path: </p>
+							    <input type='text' class='optionInput' name='model_path#' placeholder='default' value='default' style='width: 300px;' maxlength=256 required />
+								<p class='optionCaption'> Path to player model relative to the models/ folder or other pre-defined option. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details</p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Initial Alpha </p>
-							<div class='optionInput'>
-						    <input type='number' name='initialalpha' min=0 max=255 value=255 />
-							</div>
-							<p class='optionCaption'> Initial alpha value of the player. (0 = fully invisible, 255 = fully visible) </p>
+								<p class='optionLabel'> Model Skin Index: </p>
+							    <input type='number' class='optionInput' name='model_skin_index#' min=0 placeholder=0 value=0 required />
+								<p class='optionCaption'> The model skin index to use if the model support multiple skins. First skin is 0. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details</p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Damaged Alpha </p>
-							<div class='optionInput'>
-						    <input type='number' name='damagedalpha' min=0 max=255 value=255 />
-							</div>
-							<p class='optionCaption'> Alpha of a damaged player.  (See 'Damage Value' for definition of a 'damaged player') </p>
+								<p class='optionLabel'> Initial Alpha </p>
+							    <input type='number' class='optionInput' name='alpha_initial#' min=0 max=255 placeholder=255 value=255 required />
+								<p class='optionCaption'> Initial alpha value of the player. (0 = fully invisible, 255 = fully visible) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Damage Value </p>
-							<div class='optionInput'>
-						    <input type='number' name='damagevalue' min=0 max=255 value=255 />
+								<p class='optionLabel'> Damaged Alpha </p>
+						    	<input type='number' class='optionInput' name='alpha_damaged#' min=0 max=255 placeholder=255 value=255 required />
+								<p class='optionCaption'> Alpha of a damaged player.  (See 'Damage Value' for definition of a 'damaged player') </p>
 							</div>
-							<p class='optionCaption'> Amount of damage done for a player to become 'damaged' </p>
+
+							<div class='option'>
+								<p class='optionLabel'> Alpha Damage Value </p>
+							    <input type='number' class='optionInput' name='alpha_damage#' min=0 max=20000 placeholder=0 value=0 required />
+								<p class='optionCaption'> Amount of damage done for a player to become 'damaged' </p>
 							</div>
 						</div>
 
 						<h3 class='configSectionLabel'> HUD </h3>
 						<div>
 							<div class='option'>
-							<p class='optionLabel'> Overlay Path: </p>
-						    <input type='text' class='optionInput' name='overlaypath' placeholder='' style='width: 300px;' maxlength=256 />
-							<p class='optionCaption'> A path relative to the 'materials' folder to an overlay to be displayed on the player's screen. </p>
+								<p class='optionLabel'> Overlay Path: </p>
+							    <input type='text' class='optionInput' name='overlay_path#' style='width: 300px;' maxlength=256 />
+								<p class='optionCaption'> A path relative to the 'materials' folder to an overlay to be displayed on the player's screen. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> NVGs: </p>
-							<div class='optionInput'>
-							    <p> Yes <input type='radio' name='nvgs' value='yes' /> &nbsp;
-							        No <input type='radio' name='nvgs' value='no' checked />
-							    </p>
-							</div>
+								<p class='optionLabel'> NVGs: </p>
+								<div class='optionInput'>
+								    <p>
+								    Yes <input type='radio' name='nvgs#' value='yes' required /> &nbsp;
+								    No <input type='radio' name='nvgs#' value='no' checked />
+								    </p>
+								</div>
 							<p class='optionCaption'> Give and turn on nightvision. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Field of Vision: </p>
-						    <input type='number' class='optionInput' name='fov' min='60' max='120' placeholder='90' />
-							<p class='optionCaption'> Field of vision. (90 is default) </p>
+								<p class='optionLabel'> Field of Vision: </p>
+							    <input type='number' class='optionInput' name='fov#' min=15 max=165 placeholder=90 value=90 required />
+								<p class='optionCaption'> Field of vision. (90 is default) </p>
 							</div>
 						</div>
 
 						<h3 class='configSectionLabel'> Effects </h3>
 						<div>
 							<div class='option'>
-							<p class='optionLabel'> Napalm: </p>
-							<div class='optionInput'>
-							    <p>
-							    	Yes <input type='radio' name='napalm' value='yes' /> &nbsp;
-							        No <input type='radio' name='napalm' value='no' checked />
-							    </p>
-							</div>
-							<p class='optionCaption'> Can be burned by napalm grenades. </p>
-							</div>
-
-							<div class='option'>
-							<p class='optionLabel'> Naplm Burn Time: </p>
-						    <input type='number' class='optionInput' name='napalmburntime' min='0' placeholder='10.0' />
-							<p class='optionCaption'> Burn duration after being hit by napalm grenade. </p>
+								<p class='optionLabel'> Napalm: </p>
+								<div class='optionInput'>
+								    <p>
+								    Yes <input type='radio' name='has_napalm#' value='yes' checked required /> &nbsp;
+								    No <input type='radio' name='has_napalm#' value='no' />
+								    </p>
+								</div>
+								<p class='optionCaption'> This player will be able to burn zombies with napalm grenades. </p>
 							</div>
 						</div>
-						
+
 						<h3 class='configSectionLabelHover'> Player Behavior </h3>
 						<div>
-							
 							<div class='option'>
-							<p class='optionLabel'> Immunity Mode: </p>
-						    <input type='text' class='optionInput' name='immunitymode' value='none' placeholder='immunity mode' maxlength=32 />
-							<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+								<p class='optionLabel'> Immunity Mode: </p>
+							    <input type='text' class='optionInput' name='immunity_mode#' value='none' placeholder='immunity mode' maxlength=32 required />
+								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Immunity Amount: </p>
-						    <input type='number' class='optionInput' name='immunityamount' min='0' max='300' placeholder='0' />
-							<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+								<p class='optionLabel'> Immunity Amount: </p>
+							    <input type='number' class='optionInput' name='immunity_amount#' min=0 max=300 placeholder=0 value=0 required />
+								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Health: </p>
-						    <input type='number' class='optionInput' name='health' min='0' max='100000' placeholder='2500' />
-							<p class='optionCaption'> Starting HP of the human. </p>
+								<p class='optionLabel'> Immunity Cooldown: </p>
+							    <input type='number' class='optionInput' name='immunity_cooldown#' min=0 max=300 placeholder=0 value=0 required />
+								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Health Regeneration Interval: </p>
-						    <input type='number' class='optionInput' name='healthregeninterval' min='0' max='900' placeholder='0.0' />
-							<p class='optionCaption'> The health regeneration interval, in seconds.  Use 0.0 to disable. </p>
+							<p class='optionLabel'> No Fall Damage: </p>
+							<div class='optionInput'>
+							    <p>
+							    Yes <input type='radio' name='no_fall_damage#' value='yes' required /> &nbsp;
+							    No <input type='radio' name='no_fall_damage#' value='no' checked />
+							    </p>
+							</div>
+							<p class='optionCaption'> Enable this to block damage from falling. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Health Regeneration Amount: </p>
-						    <input type='number' class='optionInput' name='healthregenamount' min='0' max='10000' placeholder='0' />
-							<p class='optionCaption'> How many health points to give per interval.  Regeneration stops when back to starting HP. </p>
+								<p class='optionLabel'> Health: </p>
+							    <input type='number' class='optionInput' name='health#' min=0 max=100000 placeholder=100 value=100 required />
+								<p class='optionCaption'> Starting HP of the human. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Kill Bonus: </p>
-						    <input type='number' class='optionInput' name='killbonus' min='0' max='16' placeholder='2' />
-							<p class='optionCaption'> How many extra game points to give killer of a zombie. </p>
+								<p class='optionLabel'> Health Regeneration Interval: </p>
+							    <input type='number' class='optionInput' name='health_regen_interval#' min=0 max=900 placeholder=0.0 value=0.0 required />
+								<p class='optionCaption'> The health regeneration interval, in seconds.  Use 0.0 to disable. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Speed: </p>
-						    <input type='number' class='optionInput' name='speed' min='-200' max='2000' placeholder='390' />
-							<p class='optionCaption'> Speed of player.  NOTE: This value depends on the speed method defined in the config file. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+								<p class='optionLabel'> Health Regeneration Amount: </p>
+							    <input type='number' class='optionInput' name='health_regen_amount#' min=0 max=10000 placeholder=0 value=0 required />
+								<p class='optionCaption'> How many health points to give per interval.  Regeneration stops when back to starting HP. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Jump Height: </p>
-						    <input type='number' class='optionInput' name='jumpheight' min='0' max='5' placeholder='1.1' step='0.1' />
-							<p class='optionCaption'> Jump height multipler. </p>
+								<p class='optionLabel'> Kill Bonus: </p>
+							    <input type='number' class='optionInput' name='kill_bonus#' min=0 max=16 placeholder=2 value=2 required />
+								<p class='optionCaption'> How many extra game points to give killer of a zombie. </p>
 							</div>
 
 							<div class='option'>
-							<p class='optionLabel'> Jump Distance: </p>
-						    <input type='number' class='optionInput' name='jumpdistance' min='0' max='5' placeholder='1.2' step='0.1' />
-							<p class='optionCaption'> Jump distance multipler. </p>
+								<p class='optionLabel'> Speed: </p>
+							    <input type='number' class='optionInput' name='speed#' min=-200 max=2000 placeholder=300 value=300 required />
+								<p class='optionCaption'> Speed of player.  NOTE: This value depends on the speed method defined in the config file. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+							</div>
+
+							<div class='option'>
+								<p class='optionLabel'> Jump Height: </p>
+							    <input type='number' class='optionInput' name='jump_height#' min=0 max=5 step=0.1 placeholder=1.0  value=1.0 required />
+								<p class='optionCaption'> Jump height multipler. </p>
+							</div>
+
+							<div class='option'>
+								<p class='optionLabel'> Jump Distance: </p>
+							    <input type='number' class='optionInput' name='jump_distance#' min=0 max=5 step=0.1 placeholder=1.0 value=1.0 required />
+								<p class='optionCaption'> Jump distance multipler. </p>
 							</div>
 						</div>
 					</div>

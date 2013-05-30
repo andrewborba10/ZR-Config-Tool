@@ -11,7 +11,7 @@ html {
 }
 
 body {
-	width: 60%;
+	width: 800px;
 	margin: 0 auto;
 	background: black;
 	color: #fff;
@@ -40,7 +40,7 @@ header {
 }
 
 header h1 {
-	color: #000;
+	color: black;
 	font-family: Courier;
 	font-size: 3em;
 	font-weight: normal;

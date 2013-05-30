@@ -247,6 +247,7 @@ footer p {
 .addClassButton {
 	cursor: pointer;
 	text-align: center;
+	height: 32px;
 }
 
 #zombieClasses .addClassButton {

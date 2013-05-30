@@ -30,7 +30,7 @@ a:hover {
 	color: #333;
 }
 
-/*header styles*/
+/* Header styles */
 
 header {
 	height: 165px;
@@ -49,6 +49,18 @@ header h1 {
 	padding-left: 450px;
 }
 
+/* Section styles.
+ * There are two sections, one for zombie classes and one for human.
+ */
+
+section {
+	background: black;
+	min-height: 300px;
+	margin: 30px 0px;
+	position: relative;
+	overflow: hidden;
+}
+
 section h1, section h2, section h3 {
 	color: black;
 	font-family: Impact, Charcoal, sans-serif;
@@ -58,28 +70,19 @@ section h1, section h2, section h3 {
 }
 
 section h1 {
+	font-family: Impact, Charcoal, sans-serif;
+	color: white;
 	font-size: 2em;
 }
 
 section h2 {
-	font-size: 1.4em;
+	color: white;
+	font-size: 1.6em;
 }
 
 section h3 {
 	font-size: 1.5em;
-}
-
-/*Section styles ------------------------------------------------------------------------------------------------------------*/
-
-section {
-	background: black;
-	margin: 0px;
-}
-
-section h1 {
-	color: white;
-	font-size: 1.8em;
-	margin: 20px 0px;
+	color: black;
 }
 
 section#zombieClasses h1 {
@@ -98,30 +101,20 @@ section#humanClasses h1 {
 	border-bottom: 1px solid #000055;
 }
 
-section h3 {
-	margin-bottom: 20px;
-	border-bottom: 1px solid black;
-}
-
 /* Article styles */
 
 article {
 	background: #666;
 	margin: 30px;
-	padding: 0px 30px;
+	padding-bottom: 1px; /** CSS bug?  When anything > 0 it expands to the margin defined in .classContent */
 }
 
-#zombieClasses article {
-	border: 1px solid #550000;
-	border-top: 2em solid #550000;
+/* Config sections */
+article h3 {
+	border-bottom: 1px solid black;
 }
 
-#humanClasses article {
-	border: 1px solid #000055;
-	border-top: 2em solid #000055;
-}
-
-/*Footer styles */
+/* Footer styles */
 
 footer {
     background: #666;
@@ -133,11 +126,10 @@ footer p {
     font-family: tahoma, sans-serif;
     text-align: center;
     margin: 0;
-    padding: 10px 0;
+    padding: 10px 0px;
 }
 
-
-/*Option styles ---------------------------------------------------------------------------------------------------------------------*/
+/* Class article styles */
 
 #zombieClassTemplate {
 	display: none;
@@ -148,14 +140,36 @@ footer p {
 }
 
 .classContent {
-	margin: 1em 1em;
+	margin: 20px;
 }
 
-.classNameLabel {
-	font-family: Impact, Charcoal, sans-serif;
-	letter-spacing: 0.2em;
+.classHeader {
+	position: relative;
+	overflow: hidden;
+	height: 32px;
+}
+
+#zombieClasses .classHeader {
+	background: #550000;
+}
+
+#humanClasses .classHeader {
+	background: #000055;
+}
+
+.classHeader .deleteClassButton {
+	cursor: pointer;
+	position: absolute;
+	top: 2px;
+	right: 5px;
+	margin: 0 auto;
+	height: 28px;
+	width: 28px;
+}
+
+.classHeader h2 {
+	margin: 0 auto;
 	text-align: center;
-	margin-top: -1.3em;
 }
 
 .zombieEmptyClassNameLabel {
@@ -178,8 +192,11 @@ footer p {
 	font-style: normal;
 }
 
-.configSectionLabel
-{
+.configSection {
+	margin: 20px;
+}
+
+.classContent h3 {
 	margin: 20px 0px;
 	-o-transition:.5s;
 	-ms-transition:.5s;
@@ -188,17 +205,17 @@ footer p {
 	transition:.5s;
 }
 
-#zombieClasses .configSectionLabel:hover {
+#zombieClasses .classContent h3:hover {
 	color: #550000;
 }
 
-#humanClasses .configSectionLabel:hover {
+#humanClasses .classContent h3:hover {
 	color: #000055;
 }
 
 .option {
 	color: black;
-	margin: 20px 20px;
+	margin: 20px;
 }
 
 .optionLabel {
@@ -227,7 +244,20 @@ footer p {
 	color: #000055;
 }
 
-/* Accordion styles ---------------------------------------------------------------------------------------------------------------------*/
+.addClassButton {
+	cursor: pointer;
+	text-align: center;
+}
+
+#zombieClasses .addClassButton {
+	background: #550000;
+}
+
+#humanClasses .addClassButton {
+	background: #000055;
+}
+
+/* Accordion styles */
 
 .accordion h2, .accordion h3 {
 	cursor: pointer;

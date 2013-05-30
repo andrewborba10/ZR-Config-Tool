@@ -11,7 +11,7 @@
 }
 
 /**
- * Create class articles
+ * Create/delete class articles
  */
 
 var totalClasses = 0;
@@ -19,7 +19,7 @@ var totalZombieClasses = 0;
 var totalHumanClasses = 0;
 
 function createZombieClass() {
-/*
+	/*
 	$('#zombieClasses').append(
 		$($.parseHTML('<article></article>'))
 		.addClass('zombieClass' + totalZombieClasses++)
@@ -59,7 +59,7 @@ function createZombieClass() {
 			)
 		)
 	);
-*/
+	*/
 
 	/* Clone the template zombie article and change ID */
 	var newClass = $('#zombieClassTemplate').clone(true).attr('id', 'zombieClass' + totalClasses).data('classIndex', totalClasses).appendTo('#zombieClasses .accordion');
@@ -88,6 +88,8 @@ function createZombieClass() {
 
 	totalClasses++;
 	totalZombieClasses++;
+
+	return newClass[0];
 }
 
 function createHumanClass() {
@@ -97,9 +99,78 @@ function createHumanClass() {
 		$(this).attr('name', $(this).attr('name').replace('#', totalClasses));
 	});
 
+	/* HACK:
+	 *
+	 * Problem: The templates have the same 'name' attributes which radio buttons are sensitive to.
+	 * The default checked radio button is only working on the last template because it's overriding the ones in the first template.
+	 * However, the 'checked' properties still exist in the radio input elements in the first template.  Since when a new class is
+	 * cloned and the names are all made unique, all we have to do is disable/enable the 'checked' attribute to fix the issue.
+	 *
+	 * Note: This fix is only needed in Chrome. (only tested in FF and Chrome).
+	 *
+	 * Description: Copy over default radio button checked state
+	 */
+	var templateRadioButtons = $('input[type=radio]', $('#humanClassTemplate'));
+	$('input[type=radio]', newClass).each(function (i, val) {
+		if ($(templateRadioButtons[i]).attr('checked')) {
+			$(this).prop('checked', false);
+			$(this).prop('checked', true);
+		}
+	});
+
 	totalClasses++;
 	totalHumanClasses++;
+
+	return newClass[0];
 }
+
+function deleteClassArticle(classObj) {
+	$('.classContent', classObj).slideUp(500, function () {
+		$(classObj).remove();
+	});
+}
+
+function deleteZombieClass(classObj) {
+	deleteClassArticle(classObj);
+	totalZombieClasses--;
+}
+
+function deleteHumanClass(classObj) {
+	deleteClassArticle(classObj);
+	totalHumanClasses--;
+}
+
+/*
+ * Add/Delete buttons
+ */
+
+$('#zombieClasses .addClassButton').click(function (event) {
+	var newClass = createZombieClass();
+	$(newClass).slideUp(0);
+	$(newClass).slideDown(1000);
+
+});
+
+$('#humanClasses .addClassButton').click(function (event) {
+	var newClass = createHumanClass();
+	$(newClass).slideUp(0);
+	$(newClass).slideDown(1000);
+
+});
+
+$('#zombieClasses img.deleteClassButton').click( function (event) {
+	deleteZombieClass($(this).parents('article')[0]);
+	event.preventDefault();
+});
+
+$('#humanClasses img.deleteClassButton').click( function (event) {
+	deleteHumanClass($(this).parents('article')[0]);
+	event.preventDefault();
+});
+
+ /*
+  * Convenience functions for constructing the jquery selector for each input element given the class article obj and input name.
+  */
 
 function getClassInputName(classObj, input) {
 	return input + $(classObj).data('classIndex');
@@ -444,28 +515,26 @@ function isHumanClassValid(classObj) {
 
 $('input.className').blur(function (event) {
 	/* Get matching name label to this text input */
- 	var myNameLabel = $('.classNameLabel').get($(this).index('input.className'));
- 	if (typeof myNameLabel != 'undefined') {
- 		myNameLabel.innerHTML = this.value;
- 		if (isClassNameValid($(myNameLabel).parent()[0])) {
- 			if ($(myNameLabel).hasClass('zombieEmptyClassNameLabel')) {
-		 		$(myNameLabel).removeClass('zombieEmptyClassNameLabel');
-		 		$(myNameLabel).addClass('zombieClassNameLabel');
-		 	} else if ($(myNameLabel).hasClass('humanEmptyClassNameLabel')) {
-		 		$(myNameLabel).removeClass('humanEmptyClassNameLabel');
-		 		$(myNameLabel).addClass('humanClassNameLabel');
-		 	}
+ 	var myNameLabel = $('.classHeader h2').get($(this).index('input.className'));
+	myNameLabel.innerHTML = this.value;
+	if (isClassNameValid($(myNameLabel).parents('article')[0])) {
+		if ($(myNameLabel).hasClass('zombieEmptyClassNameLabel')) {
+	 		$(myNameLabel).removeClass('zombieEmptyClassNameLabel');
+	 		$(myNameLabel).addClass('zombieClassNameLabel');
+	 	} else if ($(myNameLabel).hasClass('humanEmptyClassNameLabel')) {
+	 		$(myNameLabel).removeClass('humanEmptyClassNameLabel');
+	 		$(myNameLabel).addClass('humanClassNameLabel');
 	 	}
-	 	else {
-	 		if ($(myNameLabel).hasClass('zombieClassNameLabel')) {
-		 		$(myNameLabel).removeClass('zombieClassNameLabel');
-		 		$(myNameLabel).addClass('zombieEmptyClassNameLabel');
-		 	} else if ($(myNameLabel).hasClass('humanClassNameLabel')) {
-		 		$(myNameLabel).removeClass('humanClassNameLabel');
-		 		$(myNameLabel).addClass('humanEmptyClassNameLabel');
-		 	}
-		 	myNameLabel.innerHTML += ' (invalid/duplicate name)';
+ 	}
+ 	else {
+ 		if ($(myNameLabel).hasClass('zombieClassNameLabel')) {
+	 		$(myNameLabel).removeClass('zombieClassNameLabel');
+	 		$(myNameLabel).addClass('zombieEmptyClassNameLabel');
+	 	} else if ($(myNameLabel).hasClass('humanClassNameLabel')) {
+	 		$(myNameLabel).removeClass('humanClassNameLabel');
+	 		$(myNameLabel).addClass('humanEmptyClassNameLabel');
 	 	}
+	 	myNameLabel.innerHTML += ' (blank/duplicate name)';
  	}
  });
 
@@ -482,20 +551,20 @@ $('.classLabel').keypress(function(event){
  * Nested accordion
  */
 
-function toggleAccordionElement(element) {
-	if(element.next().is(':hidden')) {
-		element.next().slideDown();
+function toggleAccordionElement(targetDiv) {
+	if(targetDiv.next().is(':hidden')) {
+		targetDiv.next().slideDown();
 	} else {
-		element.next().slideUp();
+		targetDiv.next().slideUp();
 	}
 }
 
 $(document).ready(function() {
-	parentDivs = $('.accordion div'),
+	parentDivs = $('.accordion div.classContent'),
 	childDivs = $('.accordion h3').siblings('div');
 	
 	$('.accordion h2').click(function(){
-		toggleAccordionElement($(this));
+		toggleAccordionElement($(this).parent());
 	});
 	$('.accordion h3').click(function(){
 		toggleAccordionElement($(this));
@@ -507,7 +576,6 @@ $(document).ready(function() {
  */
 
 window.onload = function () {
-	createZombieClass();
 	createZombieClass();
 	createHumanClass();
 };

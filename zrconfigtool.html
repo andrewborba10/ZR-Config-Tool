@@ -19,28 +19,19 @@ Description: Main web page for the ZR Config Tool.
 		<h1> Config Tool </h1>
 	</header>
 
+	<section id='content'>
 	<form id='configDetailsForm' onsubmit='' method='post'>
 		<section id='zombieClasses'>
-			<!--
-			<h1> Presets </h1>
-			<div>
-			<div class='option'>
-				<p class='optionLabel'> Select a preset: </p>
-				<select id='presets' class='optionInput'>
-					<option value='class'> Classic </option>
-				</select>
-				<p class='optionCaption'> Caution: All changes will be overwritten upon selection of a preset. </p>
-			</div>
-			</div>
-			-->
-
 			<h1> Zombie Classes </h1>
 
 			<div class='accordion'>
 				<article id='zombieClassTemplate'>
-					<h2 class='classNameLabel zombieEmptyClassNameLabel'> (Empty Class) </h2>
-					<div>
-						<h3 class='configSectionLabel'> General </h3>
+					<div class='classHeader'>
+						<img src='_images/list_remove.ico' class='deleteClassButton' />
+						<h2 class='zombieEmptyClassNameLabel'> (Empty Class) </h2>
+					</div>
+					<div class='classContent'>
+						<h3> General </h3>
 						<div>
 							<div class='option'>
 								<p class='optionLabel'> Name: </p>
@@ -94,7 +85,7 @@ Description: Main web page for the ZR Config Tool.
 							</div>
 						</div>
 					
-						<h3 class='configSectionLabel'> Model </h3>
+						<h3 > Model </h3>
 						<div>
 							<div class='option'>
 								<p class='optionLabel'> Model Path: </p>
@@ -127,7 +118,7 @@ Description: Main web page for the ZR Config Tool.
 							</div>
 						</div>
 
-						<h3 class='configSectionLabel'> HUD </h3>
+						<h3 > HUD </h3>
 						<div>
 							<div class='option'>
 								<p class='optionLabel'> Overlay Path: </p>
@@ -153,7 +144,7 @@ Description: Main web page for the ZR Config Tool.
 							</div>
 						</div>
 
-						<h3 class='configSectionLabel'> Effects </h3>
+						<h3 > Effects </h3>
 						<div>
 							<div class='option'>
 								<p class='optionLabel'> Naplm Burn Time: </p>
@@ -162,7 +153,7 @@ Description: Main web page for the ZR Config Tool.
 							</div>
 						</div>
 
-						<h3 class='configSectionLabel'> Player Behavior </h3>
+						<h3 > Player Behavior </h3>
 						<div>
 							
 							<div class='option'>
@@ -245,6 +236,9 @@ Description: Main web page for the ZR Config Tool.
 					</div>
 				</article>
 			</div>
+			<article class='addClassButton'>
+				<h2> Add Zombie Class </h2>
+			</article>
 		</section>
 
 		<section id='humanClasses'>
@@ -253,9 +247,12 @@ Description: Main web page for the ZR Config Tool.
 
 			<div class='accordion'>
 				<article id='humanClassTemplate'>
-					<h2 class='classNameLabel humanEmptyClassNameLabel'> (Empty Class) </h2>
-					<div>
-						<h3 class='configSectionLabel'> General </h3>
+					<div class='classHeader'>
+						<img src='_images/list_remove.ico' class='deleteClassButton' />
+						<h2 class='humanEmptyClassNameLabel'> (Empty Class) </h2>
+					</div>
+					<div class='classContent'>
+						<h3 > General </h3>
 						<div>
 							<div class='option'>
 								<p class='optionLabel'> Name: </p>
@@ -308,7 +305,7 @@ Description: Main web page for the ZR Config Tool.
 							</div>
 						</div>
 					
-						<h3 class='configSectionLabel'> Model </h3>
+						<h3 > Model </h3>
 						<div>
 							<div class='option'>
 								<p class='optionLabel'> Model Path: </p>
@@ -341,7 +338,7 @@ Description: Main web page for the ZR Config Tool.
 							</div>
 						</div>
 
-						<h3 class='configSectionLabel'> HUD </h3>
+						<h3 > HUD </h3>
 						<div>
 							<div class='option'>
 								<p class='optionLabel'> Overlay Path: </p>
@@ -367,7 +364,7 @@ Description: Main web page for the ZR Config Tool.
 							</div>
 						</div>
 
-						<h3 class='configSectionLabel'> Effects </h3>
+						<h3 > Effects </h3>
 						<div>
 							<div class='option'>
 								<p class='optionLabel'> Napalm: </p>
@@ -457,9 +454,12 @@ Description: Main web page for the ZR Config Tool.
 					</div>
 				</article>
 			</div>
+			<article class='addClassButton'>
+				<h2> Add Human Class </h2>
+			</article>
 		</section>
-
 	</form>
+	</section>
 
 	<footer>
     <p>

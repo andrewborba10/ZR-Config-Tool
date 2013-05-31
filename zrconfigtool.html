@@ -20,7 +20,9 @@ Description: Main web page for the ZR Config Tool.
 	</header>
 
 	<section id='content'>
-	<form id='configDetailsForm' onsubmit='' method='post'>
+        <aside>
+            <button type'button' id='generateConfig' onclick='generateConfig();'> Generate playerclasses.txt </button>
+        </aside>
 		<section id='zombieClasses'>
 			<h1> Zombie Classes </h1>
 
@@ -71,8 +73,8 @@ Description: Main web page for the ZR Config Tool.
 							<p class='optionLabel'> Flags: </p>
 							<div class='optionInput'>
 							    <p>
-							    Mother Zombie <input type='checkbox' name='motherzombie#' /> &nbsp;
-							    Admin-Only <input type='checkbox' name='adminonly#' />
+							    Mother Zombie <input type='checkbox' name='flags#' /> &nbsp;
+							    Admin-Only <input type='checkbox' name='flags#' />
 							    </p>
 							</div>
 							<p class='optionCaption'> Check the flags that apply to this class. </p>
@@ -210,6 +212,12 @@ Description: Main web page for the ZR Config Tool.
 							</div>
 
 							<div class='option'>
+								<p class='optionLabel'> Kill Bonus: </p>
+							    <input type='number' class='optionInput' name='kill_bonus#' min=0 max=16 placeholder=2 value=2 required />
+								<p class='optionCaption'> How many extra game points to give killer of this zombie. </p>
+							</div>
+
+							<div class='option'>
 								<p class='optionLabel'> Speed: </p>
 							    <input type='number' class='optionInput' name='speed#' min=-200 max=2000 placeholder=390 value=390 required />
 								<p class='optionCaption'> Speed of player.  NOTE: This value depends on the speed method defined in the config file. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
@@ -292,7 +300,7 @@ Description: Main web page for the ZR Config Tool.
 							<p class='optionLabel'> Flags: </p>
 							<div class='optionInput'>
 							    <p>
-							    Admin-Only <input type='checkbox' name='adminonly#' />
+							    Admin-Only <input type='checkbox' name='flags#' />
 							    </p>
 							</div>
 							<p class='optionCaption'> Check the flags that apply to this class. </p>
@@ -428,12 +436,6 @@ Description: Main web page for the ZR Config Tool.
 							</div>
 
 							<div class='option'>
-								<p class='optionLabel'> Kill Bonus: </p>
-							    <input type='number' class='optionInput' name='kill_bonus#' min=0 max=16 placeholder=2 value=2 required />
-								<p class='optionCaption'> How many extra game points to give killer of a zombie. </p>
-							</div>
-
-							<div class='option'>
 								<p class='optionLabel'> Speed: </p>
 							    <input type='number' class='optionInput' name='speed#' min=-200 max=2000 placeholder=300 value=300 required />
 								<p class='optionCaption'> Speed of player.  NOTE: This value depends on the speed method defined in the config file. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
@@ -458,7 +460,6 @@ Description: Main web page for the ZR Config Tool.
 				<h2> Add Human Class </h2>
 			</article>
 		</section>
-	</form>
 	</section>
 
 	<footer>
@@ -469,6 +470,7 @@ Description: Main web page for the ZR Config Tool.
 
 	<script src='http://code.jquery.com/jquery-1.9.1.js'></script>
 	<script src='http://code.jquery.com/ui/1.10.3/jquery-ui.js'></script>
+    <script src='https://rawgithub.com/eligrey/FileSaver.js/master/FileSaver.min.js'></script>
 	<script src='zrconfigtool.js'></script>
 </body>
 </html>

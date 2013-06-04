@@ -10,37 +10,138 @@
     sel.addRange(range);
 }
 
+/* Class input utilities */
+
+function isZombieClass(classObj) {
+	return ($(classObj).parents('#zombieClasses').length > 0);
+}
+
+function isHumanClass(classObj) {
+	return ($(classObj).parents('#humanClasses').length > 0);
+}
+
+/* Gets the class object given any element inside it. */
+function getClassObjFromElement(element) {
+	return $(element).parents('.playerClass')[0];
+}
+
+/* Returns the input name given the input and class object
+ * Ex: input + classObj->classIndex = 'name' + '3' = 'name3'
+ */
+function getClassInputName(classObj, input) {
+	return input + '_' + $(classObj).data('classIndex');
+}
+
+/* Takes a an input element and returns the prefix of the name attribute.  (Inverse of getClassInputName)
+ * Ex: class#4 name element ->'name_4' -> 'name'
+ */
+function getClassInputRawName(classObj, input) {
+	var name = $(input).attr('name');
+	return name.substr(0, name.lastIndexOf('_'));
+}
+
+/* Given the input and class object, returns the jquery selector for the input.
+ * Ex: returns 'input[name=name3]' given the input in the previous function's example.
+ */
+function getClassInputSelector(classObj, input) {
+	return 'input[' + 'name=' + getClassInputName(classObj, input) + ']';
+}
+
+
+
+/**
+ * Returns a jquery object containing input elements (only more than one for checkboxes, radio buttons, etc)
+ */
+function getClassInput(classObj, input) {
+	return $(getClassInputSelector(classObj, input), $(classObj));
+}
+
+/* Gets the value of a class input */
+function getClassInputVal(classObj, input) {
+	return getClassInput(classObj, input).val();
+}
+
+/* Check if this input has been filled in, checked, or provided a number */
+function isClassInputCompleted(classObj, input) {
+	var classInput = getClassInput(classObj, input);
+	var classInputType = classInput.attr('type');
+	switch(classInputType) {
+		case 'text':
+			return $.trim(classInput.val()) !== '';
+		case 'radio':
+			return classInput.is(':checked');
+		case 'checkbox':
+			return true;
+		case 'number':
+			return $.isNumeric(classInput.val());
+		default:
+			console.log('WARNING: Unknown class input type: ' + classInputType);
+	}
+}
+
+/* Create a bitfield from a checkbox group.  1 = checked, 0 = unchecked.
+ * Example:
+ * [ ] Option 1
+ * [X] Option 2
+ * [X] Option 3
+ * ---> 011 = 3
+ */
+function checkBoxGroupToBitField(classObj, checkboxGroup) {
+	var checkBoxes = getClassInput(classObj, checkboxGroup);
+	var result = 0;
+	checkBoxes.each(function (i, val) {
+		if ($(this).is(':checked')) {
+			result += Math.pow(2, i);
+		}
+	});
+	return result;
+}
+
 /*
- * KV tree string builder.
+ * Global keyvalue tree string builder.
+ * Tree format:
+ * "node1"
+ * {
+ *     "node1"
+ *     {
+ *         "key1"    "value1"
+ *         ...
+ *     }
+ * }
  */
 var kvTree = '';
 var kvTreeDepth = 0;
+var kvIndentString = '    ';
 
-/* For lining up the key values */
+/* For lining up the key values with whitespace */
 var kvLongestKeyName = 21; // "health_regen_interval"
 
+/* Clear the global tree to empty. */
 function kvClearTree() {
 	kvTree = '';
 	kvTreeDepth = 0;
 }
 
-/* Insert tabs based on the depth of the tree. */
+/* Insert a newline into the tree */
 function kvNewLine() {
 	kvTree += '\r\n';
 }
 
+/* Indent the line based on the current depth of the tree */
 function kvIndent() {	
 	for (var i = 0; i < kvTreeDepth; i++) {
-		kvTree += '    ';
+		kvTree += kvIndentString;
 	}
 }
 
+/* Add a '//'-formatted comment to the current line */
 function kvAddComment(comment) {
 	kvIndent();
 	kvTree += '// ' + comment;
 	kvNewLine();
 }
 
+/* Create a node, going 1 level deeper into the tree */
 function kvStartNode(name) {
 	kvIndent();
 	kvTree += '\"' + name + '\"';
@@ -52,6 +153,7 @@ function kvStartNode(name) {
 	kvTreeDepth++;
 }
 
+/* End the node at this level and return back up 1 level in the tree */
 function kvEndNode() {
 	kvTreeDepth--;
 	
@@ -60,6 +162,7 @@ function kvEndNode() {
 	kvNewLine();
 }
 
+/* Add a key-value pair to the tree. */
 function kvAddKeyValuePair(key, value) {
 	kvIndent();
 	kvTree += '\"' + key + '\"';
@@ -80,47 +183,7 @@ var totalZombieClasses = 0;
 var totalHumanClasses = 0;
 
 function createZombieClass() {
-	/*
-	$('#zombieClasses').append(
-		$($.parseHTML('<article></article>'))
-		.addClass('zombieClass' + totalZombieClasses++)
-		.append(
- 			$($.parseHTML('<h2> (Empty Class) </h2>'))
- 			.addClass('classNameLabel zombieClassNameLabel')
- 		)
-		.append(
-			$($.parseHTML('<div></div>'))
-			.append(
-				$($.parseHTML('<h3> General </h3>'))
-			)
-		 	.append(
-				$($.parseHTML('<div></div>'))
-				.append(
-					$($.parseHTML('<div></div>'))
-					.addClass('option')
-					.append(
-						$($.parseHTML('<p> Name: </p>'))
-						.addClass('optionLabel'))
-
-					.append(
-						$($.parseHTML('<input/>'), {
-							type: 'text',
-							name: 'name',
-							placeholder: 'Name',
-							style: 'width: 175px;',
-							maxlength: '64',
-							required: 'true'
-						})
-						.addClass('className optionInput'))
-
-					.append(
-						$($.parseHTML('<p> Name of this class. </p>'))
-						.addClass('optionCaption zombieRed'))
-				)
-			)
-		)
-	);
-	** Clone the template zombie article and change ID */
+	/** Clone the template zombie article and change ID */
 	var newClass = $('#zombieClassTemplate').clone(true).attr('id', 'zombieClass' + totalClasses).addClass('playerClass').data('classIndex', totalClasses).appendTo('#zombieClasses .accordion');
 	$('input', newClass).each(function () {
 		$(this).attr('name', $(this).attr('name').replace('#', totalClasses));
@@ -144,6 +207,12 @@ function createZombieClass() {
 			$(this).prop('checked', true);
 		}
 	});
+	
+	/** Set the default value for 'team_default' input */
+	var defaultRadioButtons = getClassInput(newClass, 'team_default');
+	defaultRadioButtons.each(function () {
+		$(this).prop('checked', (totalHumanClasses == 0 && $(this).val() === 'yes') || (totalHumanClasses > 0 && $(this).val() === 'no'));
+	});
 
 	totalClasses++;
 	totalZombieClasses++;
@@ -158,17 +227,7 @@ function createHumanClass() {
 		$(this).attr('name', $(this).attr('name').replace('#', totalClasses));
 	});
 
-	/* HACK:
-	 *
-	 * Problem: The templates have the same 'name' attributes which radio buttons are sensitive to.
-	 * The default checked radio button is only working on the last template because it's overriding the ones in the first template.
-	 * However, the 'checked' properties still exist in the radio input elements in the first template.  Since when a new class is
-	 * cloned and the names are all made unique, all we have to do is disable/enable the 'checked' attribute to fix the issue.
-	 *
-	 * Note: This fix is only needed in Chrome. (only tested in FF and Chrome).
-	 *
-	 * Description: Copy over default radio button checked state
-	 */
+	/* HACK: (described in createZombieClass) */
 	var templateRadioButtons = $('input[type=radio]', $('#humanClassTemplate'));
 	$('input[type=radio]', newClass).each(function (i, val) {
 		if ($(templateRadioButtons[i]).attr('checked')) {
@@ -176,46 +235,70 @@ function createHumanClass() {
 			$(this).prop('checked', true);
 		}
 	});
-
+	
+	/** Set the default value for 'team_default' input */
+	var defaultRadioButtons = getClassInput(newClass, 'team_default');
+	defaultRadioButtons.each(function () {
+		$(this).prop('checked', (totalHumanClasses == 0 && $(this).val() === 'yes') || (totalHumanClasses > 0 && $(this).val() === 'no'));
+	});
+	
 	totalClasses++;
 	totalHumanClasses++;
 
 	return newClass[0];
 }
 
-function deleteClassArticle(classObj) {
-	$('.classContent', classObj).slideUp(500, function () {
-		$(classObj).remove();
-	});
-}
-
+/* Remove the DOM elements from the page and decrement total classes */
 function deleteZombieClass(classObj) {
-	deleteClassArticle(classObj);
+	$(classObj).remove();
 	totalZombieClasses--;
 }
 
+/* Remove the DOM elements from the page and decrement total classes */
 function deleteHumanClass(classObj) {
-	deleteClassArticle(classObj);
+	$(classObj).remove();
 	totalHumanClasses--;
 }
 
-/*
- * Convenience functions for constructing the jquery selector for each input element given the class article obj and input name.
- */
-
-function getClassInputName(classObj, input) {
-	return input + $(classObj).data('classIndex');
-}
-
-function getClassInputSelector(classObj, input) {
-	return 'input[' + 'name=' + getClassInputName(classObj, input) + ']';
+/* Automatically determine if the class is zombie or human and call the appropriate delete function */
+function deleteClass(classObj) {
+	if (isZombieClass(classObj)) {
+		deleteZombieClass(classObj);
+	} else if (isHumanClass(classObj)) {
+		deleteHumanClass(classObj);
+	}
 }
 
 /**
- * Returns a jquery object containing input elements (only more than one for checkboxes, radio buttons, etc)
+ * Class header behavior
  */
-function getClassInput(classObj, input) {
-	return $(getClassInputSelector(classObj, input), $(classObj));
+
+function setClassHeaderInvalid(classObj) {
+	
+}
+
+function setClassHeaderValid(classObj) {
+}
+
+function updateHeaderStyle(classObj, valid) {
+	if (valid) {
+		setClassHeaderValid(classObj);
+	} else {
+		setClassHeaderInvalid(classObj);
+	}
+}
+
+function setHeaderText(classObj, text) {
+	var classHeader = $('.classHeader', classObj)[0];
+	$('h2', classHeader).html(text);
+}
+
+function updateHeaderText(classObj) {
+	if (isClassInputCompleted(classObj, 'name')) {
+		setHeaderText(classObj, getClassInputVal(classObj, 'name'));
+	} else {
+		setHeaderText(classObj, '(Unnamed)');
+	}
 }
 
 /* Config option validation functions */
@@ -223,40 +306,47 @@ function getClassInput(classObj, input) {
 function isClassNameUnique(classObj) {
 	/** Check if the value of the class name input conflicts with any other classes. */
 	var conflict = false;
-	var className = $.trim(getClassInput(classObj, 'name').val());
+	var className = $.trim(getClassInputVal(classObj, 'name'));
 	$('.playerClass').each(function () {
 		if (classObj !== this) {
 			if ($(this).data('valid'))
 			{
-				if (className === $.trim(getClassInput(this, 'name').val())) {
+				if (className === $.trim(getClassInputVal(this, 'name'))) {
 					conflict = true;
+					return false; /* Break the loop */
 				}
 			}
 		}
 	});
+
 	return !conflict;
 }
 
+function setInputErrorTextVisible(input, visible) {
+	$(input).siblings('.optionError').attr('style', visible ? 'display: normal' : 'display: none;');
+}
+
 function isClassNameValid(classObj) {
-	/** Check name conflicts with other classes */
-	$(classObj).data('valid', ($.trim(getClassInput(classObj, 'name').val()) !== '' && isClassNameUnique(classObj)));
-	return $(classObj).data('valid');
+	var input = getClassInput(classObj, 'name');
+	var valid = isClassInputCompleted(classObj, 'name') && isClassNameUnique(classObj);
+	$(classObj).data('valid', valid);
+	return valid;
 }
 
 function isClassDescriptionValid(classObj) {
-	return ($.trim(getClassInput(classObj, 'description').val()) !== '');
+	return isClassInputCompleted(classObj, 'description');
 }
 
 function isClassEnabledValid(classObj) {
-	return (getClassInput(classObj, 'enabled').is(':checked'));
+	return isClassInputCompleted(classObj, 'enabled');
 }
 
-function isClassDefaultValid(classObj) {
-	return (getClassInput(classObj, 'team_default').is(':checked'));
+function isClassTeamDefaultValid(classObj) {
+	return isClassInputCompleted(classObj, 'team_default');
 }
 
 function isClassFlagsValid(classObj) {
-	return true;
+	return isClassInputCompleted(classObj, 'flags');
 }
 
 function isClassGroupValid(classObj) {
@@ -264,27 +354,27 @@ function isClassGroupValid(classObj) {
 }
 
 function isClassModelValid(classObj) {
-	return ($.trim(getClassInput(classObj, 'model_path').val()) !== '');
+	return isClassInputCompleted(classObj, 'model_path');
 }
 
 function isClassModelSkinIndexValid(classObj) {
-	var value = getClassInput(classObj, 'model_skin_index').val();
-	return (value >= 0);
+	var value = getClassInputVal(classObj, 'model_skin_index');
+	return (isClassInputCompleted(classObj, 'model_skin_index') && value >= 0);
 }
 
-function isClassInitAlphaValid(classObj) {
-	var value = getClassInput(classObj, 'alpha_initial').val();
-	return (value >= 0 && value <= 255);
+function isClassAlphaInitialValid(classObj) {
+	var value = getClassInputVal(classObj, 'alpha_initial');
+	return (isClassInputCompleted(classObj, 'alpha_initial') && value >= 0 && value <= 255);
 }
 
-function isClassDamagedAlphaValid(classObj) {
-	var value = getClassInput(classObj, 'alpha_damaged').val();
-	return (value >= 0 && value <= 255);
+function isClassAlphaDamagedValid(classObj) {
+	var value = getClassInputVal(classObj, 'alpha_damaged');
+	return (isClassInputCompleted(classObj, 'alpha_damaged') && value >= 0 && value <= 255);
 }
 
-function isClassDamageValueValid(classObj) {
-	var value = getClassInput(classObj, 'alpha_damage').val();
-	return (value >= 0 && value <= 20000);
+function isClassAlphaDamageValid(classObj) {
+	var value = getClassInputVal(classObj, 'alpha_damage');
+	return (isClassInputCompleted(classObj, 'alpha_damage') && value >= 0 && value <= 20000);
 }
 
 function isClassOverlayValid(classObj) {
@@ -292,281 +382,221 @@ function isClassOverlayValid(classObj) {
 }
 
 function isClassNVGsValid(classObj) {
-	return (getClassInput(classObj, 'nvgs').is(':checked'));
+	return isClassInputCompleted(classObj, 'nvgs');
 }
 
 function isClassFOVValid(classObj) {
-	var value = getClassInput(classObj, 'fov').val();
-	return (value >= 15 && value <= 165);
+	var value = getClassInputVal(classObj, 'fov');
+	return (isClassInputCompleted(classObj, 'fov') && value >= 15 && value <= 165);
 }
 
 function isClassNapalmValid(classObj) {
-	return (getClassInput(classObj, 'has_napalm').is(':checked'));
+	return isClassInputCompleted(classObj, 'has_napalm');
 }
 
 function isClassBurnTimeValid(classObj) {
-	var value = getClassInput(classObj, 'napalm_time').val();
-	return (value >= 0 && value <= 600);
+	var value = getClassInputVal(classObj, 'napalm_time');
+	return (isClassInputCompleted(classObj, 'napalm_time') && value >= 0 && value <= 600);
 }
 
 function isClassImmunityModeValid(classObj) {
-	return ($.trim(getClassInput(classObj, 'immunity_mode').val()) !== '');
+	return isClassInputCompleted(classObj, 'immunity_mode');
 }
 
 function isClassImmunityAmountValid(classObj) {
-	var value = getClassInput(classObj, 'immunity_amount').val();
-	return (value >= 0 && value <= 300);
+	var value = getClassInputVal(classObj, 'immunity_amount');
+	return (isClassInputCompleted(classObj, 'immunity_amount') && value >= 0 && value <= 300);
 }
 
 function isClassImmunityCooldownValid(classObj) {
-	var value = getClassInput(classObj, 'immunity_cooldown').val();
-	return (value >= 0 && value <= 300);
+	var value = getClassInputVal(classObj, 'immunity_cooldown');
+	return (isClassInputCompleted(classObj, 'immunity_cooldown') && value >= 0 && value <= 300);
 }
 
 function isClassNoFallDamageValid(classObj) {
-	return (getClassInput(classObj, 'no_fall_damage').is(':checked'));
+	return isClassInputCompleted(classObj, 'no_fall_damage');
 }
 
 function isClassHealthValid(classObj) {
-	var value = getClassInput(classObj, 'health').val();
-	return (value >= 0 && value <= 100000);
+	var value = getClassInputVal(classObj, 'health');
+	return (isClassInputCompleted(classObj, 'health') && value >= 0 && value <= 100000);
 }
 
-function isClassHPRegenInitValid(classObj) {
-	var value = getClassInput(classObj, 'health_regen_interval').val();
-	return (value >= 0 && value <= 900);
+function isClassHealthRegenIntervalValid(classObj) {
+	var value = getClassInputVal(classObj, 'health_regen_interval');
+	return (isClassInputCompleted(classObj, 'health_regen_interval') && value >= 0 && value <= 900);
 }
 
-function isClassHPRegenAmountValid(classObj) {
-	var value = getClassInput(classObj, 'health_regen_amount').val();
-	return (value >= 0 && value <= 10000);
+function isClassHealthRegenAmountValid(classObj) {
+	var value = getClassInputVal(classObj, 'health_regen_amount');
+	return (isClassInputCompleted(classObj, 'health_regen_amount') && value >= 0 && value <= 10000);
 }
 
-function isClassHPInfectGainValid(classObj) {
-	var value = getClassInput(classObj, 'health_infect_gain').val();
-	return (value >= 0 && value <= 20000);
+function isClassHealthInfectGainValid(classObj) {
+	var value = getClassInputVal(classObj, 'health_infect_gain');
+	return (isClassInputCompleted(classObj, 'health_infect_gain') && value >= 0 && value <= 20000);
 }
 
 function isClassKillBonusValid(classObj) {
-	var value = getClassInput(classObj, 'kill_bonus').val();
-	return (value >= 0 && value <= 16);
+	var value = getClassInputVal(classObj, 'kill_bonus');
+	return (isClassInputCompleted(classObj, 'kill_bonus') && value >= 0 && value <= 16);
 }
 
 function isClassSpeedValid(classObj) {
-	var value = getClassInput(classObj, 'speed').val();
-	return (value >= -200 && value <= 2000);
+	var value = getClassInputVal(classObj, 'speed');
+	return (isClassInputCompleted(classObj, 'speed') && value >= -200 && value <= 2000);
 }
 
 function isClassKnockbackValid(classObj) {
-	var value = getClassInput(classObj, 'knockback').val();
-	return (value >= -30 && value <= 30);
+	var value = getClassInputVal(classObj, 'knockback');
+	return (isClassInputCompleted(classObj, 'knockback') && value >= -30 && value <= 30);
 }
 
 function isClassJumpHeightValid(classObj) {
-	var value = getClassInput(classObj, 'jump_height').val();
-	return (value >= 0 && value <= 5);
+	var value = getClassInputVal(classObj, 'jump_height');
+	return (isClassInputCompleted(classObj, 'jump_height') && value >= 0 && value <= 5);
 }
 
 function isClassJumpDistanceValid(classObj) {
-	var value = getClassInput(classObj, 'jump_distance').val();
-	return (value >= 0 && value <= 5);
+	var value = getClassInputVal(classObj, 'jump_distance');
+	return (isClassInputCompleted(classObj, 'jump_distance') && value >= 0 && value <= 5);
 }
 
 /*
- * Verify the common options between zombies and humans, return true if so.
+ * Maps of common, zombie, and human validator functions (mapping input name to function)
  */
-function areCommonOptionsValid(classObj) {
-	/* Check each option */
-	if (!isClassNameValid(classObj)) {
-		return false;
-	}
 
-	if (!isClassDescriptionValid(classObj)) {
-		return false;
-	}
+common_validators =
+{
+	'name' : isClassNameValid,
+	'description' : isClassDescriptionValid,
+	'enabled' : isClassEnabledValid,
+	'team_default': isClassTeamDefaultValid,
+	'flags': isClassFlagsValid,
+	'group': isClassGroupValid,
+	'model_path': isClassModelValid,
+	'model_skin_index': isClassModelSkinIndexValid,
+	'alpha_initial': isClassAlphaInitialValid,
+	'alpha_damaged' : isClassAlphaDamagedValid,
+	'alpha_damage' : isClassAlphaDamageValid,
+	'overlay_path' : isClassOverlayValid,
+	'nvgs' : isClassNVGsValid,
+	'fov' : isClassFOVValid,
+	'immunity_mode' : isClassImmunityModeValid,
+	'immunity_amount' : isClassImmunityAmountValid,
+	'immunity_cooldown' : isClassImmunityCooldownValid,
+	'no_fall_damage' : isClassNoFallDamageValid,
+	'health' : isClassHealthValid,
+	'health_regen_interval' : isClassHealthRegenIntervalValid,
+	'health_regen_amount' : isClassHealthRegenAmountValid,
+	'speed' : isClassSpeedValid,
+	'jump_height' : isClassJumpHeightValid,
+	'jump_distance' : isClassJumpDistanceValid
+};
 
-	if (!isClassEnabledValid(classObj)) {
-		return false;
-	}
+zombie_validators = {
+	'napalm_time' : isClassBurnTimeValid,
+	'health_infect_gain' : isClassHealthInfectGainValid,
+	'kill_bonus' : isClassKillBonusValid,
+	'knockback' : isClassKnockbackValid
+};
 
-	if (!isClassDefaultValid(classObj)) {
-		return false;
-	}
+human_validators = {
+	'has_napalm' : isClassNapalmValid
+};
 
-	if (!isClassFlagsValid(classObj)) {
-		return false;
-	}
+all_validators = {};
+$.extend(all_validators, common_validators, zombie_validators, human_validators);
 
-	if (!isClassGroupValid(classObj)) {
-		return false;
-	}
+/* Validate a single class input */
+function validateInputElement(classObj, inputName) {
+	var invalid = !(all_validators[inputName])(classObj);
+	setInputErrorTextVisible(getClassInput(classObj, inputName), invalid);
+	return !invalid;
+}
 
-	if (!isClassModelValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassModelSkinIndexValid(classObj)) {
-		return false;
-	}
-
-	console.log('8');
-
-	if (!isClassInitAlphaValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassDamagedAlphaValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassDamageValueValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassOverlayValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassNVGsValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassFOVValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassImmunityModeValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassImmunityAmountValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassImmunityCooldownValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassNoFallDamageValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassHealthValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassHPRegenInitValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassHPRegenAmountValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassSpeedValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassJumpHeightValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassJumpDistanceValid(classObj)) {
-		return false;
-	}
-
-	/* Finally, we can return true. */
-	return true;
+/*
+ * Validate all common options, displaying error text if not valid.
+ */
+function validateCommonOptions(classObj) {
+	var valid = true;
+	$.each(common_validators, function (inputName, validator) {
+		var invalid = !(validator)(classObj);
+		setInputErrorTextVisible(getClassInput(classObj, inputName), invalid);
+		if (invalid) {
+			valid = false;
+		}
+	});
+	return valid;
 }
 
 /*
  * Verify common attributes and zombie-specific ones as well, return true if valid
  */
-function isZombieClassValid(classObj) {
-	if (!areCommonOptionsValid(classObj)) {
-		return false;
+function validateZombieClass(classObj) {
+	var valid = validateCommonOptions(classObj);
+	if (valid) {
+		$.each(zombie_validators, function (inputName, validator) {
+			var invalid = !(validator)(classObj);
+			setInputErrorTextVisible(getClassInput(classObj, inputName), invalid);
+			if (invalid) {
+				valid = false;
+			}
+		});
 	}
-
-	if (!isClassBurnTimeValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassHPInfectGainValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassKillBonusValid(classObj)) {
-		return false;
-	}
-
-	if (!isClassKnockbackValid(classObj)) {
-		return false;
-	}
-
-	/* Finally, we can return true. */
-	return true;
+	updateHeaderStyle(classObj, valid);
+	return valid;
 }
 
 /*
  * Verify common attributes and human-specific ones as well, return true if valid
  */
-function isHumanClassValid(classObj) {
-	if (!areCommonOptionsValid(classObj)) {
-		return false;
+function validateHumanClass(classObj) {
+	var valid = validateCommonOptions(classObj);
+	if (valid) {
+		$.each(human_validators, function (inputName, validator) {
+			var invalid = !(validator)(classObj);
+			setInputErrorTextVisible(getClassInput(classObj, inputName), invalid);
+			if (invalid) {
+				valid = false;
+			}
+		});
 	}
-
-	if (!isClassNapalmValid(classObj)) {
-		return false;
-	}
-
-	/* Finally, we can return true. */
-	return true;
+	updateHeaderStyle(classObj, valid);
+	return valid;
 }
 
-/**
- * Class label behavior
- */
+function validateClass(classObj) {
+	if (isZombieClass(classObj)) {
+		return validateZombieClass(classObj);
+	} else if (isHumanClass(classObj)) {
+		return validateHumanClass(classObj);
+	}
+	return false;
+}
 
-$('input.className').blur(function (event) {
-	/* Get matching name label to this text input */
- 	var myNameLabel = $('.classHeader h2').get($(this).index('input.className'));
-	myNameLabel.innerHTML = this.value;
-	if (isClassNameValid($(myNameLabel).parents('.playerClass')[0])) {
-		if ($(myNameLabel).hasClass('zombieEmptyClassNameLabel')) {
-	 		$(myNameLabel).removeClass('zombieEmptyClassNameLabel');
-	 		$(myNameLabel).addClass('zombieClassNameLabel');
-	 	} else if ($(myNameLabel).hasClass('humanEmptyClassNameLabel')) {
-	 		$(myNameLabel).removeClass('humanEmptyClassNameLabel');
-	 		$(myNameLabel).addClass('humanClassNameLabel');
-	 	}
- 	}
- 	else {
- 		if ($(myNameLabel).hasClass('zombieClassNameLabel')) {
-	 		$(myNameLabel).removeClass('zombieClassNameLabel');
-	 		$(myNameLabel).addClass('zombieEmptyClassNameLabel');
-	 	} else if ($(myNameLabel).hasClass('humanClassNameLabel')) {
-	 		$(myNameLabel).removeClass('humanClassNameLabel');
-	 		$(myNameLabel).addClass('humanEmptyClassNameLabel');
-	 	}
-	 	myNameLabel.innerHTML += ' (blank/duplicate name)';
- 	}
- });
-
-/**
- * Generate KV tree
- */
-
-function checkBoxGroupToBitField(classObj, checkboxGroup) {
-	var checkBoxes = getClassInput(classObj, checkboxGroup);
-	var result = 0;
-	checkBoxes.each(function (i, val) {
-		if ($(this).is(':checked')) {
-			result += Math.pow(2, i);
+function validateClasses() {
+	var valid = true;
+	$('.playerClass').each(function () {
+		if (!validateClass(this)) {
+			valid = false;
 		}
 	});
-	return result;
+	return valid;
 }
 
+/* Update header when any input is touched */
+$('input.className').keyup(function (event) {
+	var classObj = getClassObjFromElement(this);
+	updateHeaderText(classObj);
+});
+
+$('input').blur(function (event) {
+	var classObj = getClassObjFromElement(this);
+	validateInputElement(classObj, getClassInputRawName(classObj, this));
+});
+
+/* Read each input and format it for ZR playerclasses.txt. */
 function inputToFile()
 {
 	kvClearTree();
@@ -757,19 +787,21 @@ $('#humanClasses .addClassButton').click(function (event) {
 	$(newClass).slideDown(1000);
 });
 
-$('#zombieClasses img.deleteClassButton').click( function (event) {
-	deleteZombieClass($(this).parents('.playerClass')[0]);
-	event.preventDefault();
-});
-
-$('#humanClasses img.deleteClassButton').click( function (event) {
-	deleteHumanClass($(this).parents('.playerClass')[0]);
+$('img.deleteClassButton').click( function (event) {
+	var classObj = getClassObjFromElement(this);
+	$('.classContent', classObj).slideUp(500, function () {
+		deleteClass(classObj);
+	});
+	
+	/* Block the default a tag behavior */
 	event.preventDefault();
 });
 
 /* Called by generate config button */
 function generateConfig() {
-	inputToFile();
+	if (validateClasses()) {
+		inputToFile();
+	}
 }
 
 /*
@@ -784,7 +816,7 @@ function toggleAccordionElement(targetDiv) {
 	}
 }
 
-$(document).ready(function() {
+function initAccordions() {
 	parentDivs = $('.accordion div.classContent'),
 	childDivs = $('.accordion h3').siblings('div');
 	
@@ -794,8 +826,16 @@ $(document).ready(function() {
 	$('.accordion h3').click(function(){
 		toggleAccordionElement($(this));
 	});
+}
+
+/* Page loaded listener */
+$(document).ready(function() {
+	/* Initialize accordion structure. */
+	initAccordions();
 	
 	/* Create one of each class when the page loads */
 	createZombieClass();
 	createHumanClass();
+	
+	/* Testing */
 });

@@ -177,24 +177,19 @@ footer p {
 	text-align: center;
 }
 
-.zombieEmptyClassNameLabel {
+.classHeaderLabel {
+	color: white;
+	font-style: normal;
+}
+
+#zombieClasses .invalidClassHeaderLabel {
 	color: #aa3333;
 	font-style: italic;
 }
 
-.humanEmptyClassNameLabel {
+#humanClasses .invalidClassHeaderLabel {
 	color: #3333aa;
 	font-style: italic;
-}
-
-.zombieClassNameLabel {
-	color: white;
-	font-style: normal;
-}
-
-.humanClassNameLabel {
-	color: white;
-	font-style: normal;
 }
 
 .configSection {
@@ -231,8 +226,13 @@ footer p {
 
 .optionInput {
 	float: left;
-	clear: right;
 	margin: 0px 10px 5px;
+}
+
+.optionError {
+	float: left;
+	clear: right;
+	color: #990000;
 }
 
 .optionCaption {

@@ -90,20 +90,39 @@ section h3 {
 	color: black;
 }
 
-section#zombieClasses h1 {
+.teamHeader {
+}
+
+#zombieClasses .teamHeader {
+	border-bottom: 1px solid #550000;
+}
+
+#humanClasses .teamHeader {
+	border-bottom: 1px solid #000055;
+}
+
+.teamHeader h1 {
+	display: inline-block;
+}
+
+#zombieClasses .teamHeader h1 {
 	-o-text-stroke-width: 2px #550000;
 	-ms-text-stroke-width: 2px #550000;
 	-moz-text-stroke-width: 2px #550000;
 	-webkit-text-stroke: 2px #550000;
-	border-bottom: 1px solid #550000;
 }
 
-section#humanClasses h1 {
+#humanClasses .teamHeader h1 {
 	-o-text-stroke-width: 2px #000055;
 	-ms-text-stroke-width: 2px #000055;
 	-moz-text-stroke-width: 2px #000055;
 	-webkit-text-stroke: 2px #000055;
-	border-bottom: 1px solid #000055;
+}
+
+.teamError {
+	display: inline;
+	margin-left: 20px;
+	color: #990000;
 }
 
 /* Article styles */

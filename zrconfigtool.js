@@ -54,9 +54,27 @@ function getClassInput(classObj, input) {
 	return $(getClassInputSelector(classObj, input), $(classObj));
 }
 
-/* Gets the value of a class input */
+/* Gets the value of a class input
+ * Text inputs: string
+ * Radio input: selected value
+ * Checkbox: jQuery object with checked boxes
+ * Number: number
+ */
 function getClassInputVal(classObj, input) {
-	return getClassInput(classObj, input).val();
+	var classInput = getClassInput(classObj, input);
+	var classInputType = classInput.attr('type');
+	switch(classInputType) {
+		case 'text':
+			return classInput.val();
+		case 'radio':
+			return classInput.filter(':checked').val();
+		case 'checkbox':
+			return classInput.filter(':checked');
+		case 'number':
+			return classInput.val();
+		default:
+			console.log('WARNING: Unknown class input type: ' + classInputType);
+	}
 }
 
 /* Check if this input has been filled in, checked, or provided a number */
@@ -322,23 +340,63 @@ function isClassNameUnique(classObj) {
 	var conflict = false;
 	var className = $.trim(getClassInputVal(classObj, 'name'));
 	$('.playerClass').each(function () {
-		if (classObj !== this) {
-			if (getClassInput(classObj, 'name').data('nameValid'))
-			{
-				console.log('isclassunique');
-				if (className.toLowerCase() === $.trim(getClassInputVal(this, 'name')).toLowerCase()) {
-					conflict = true;
-					return false; /* Break the loop */
-				}
+		if (classObj === this) {
+			return false;
+		}
+		
+		if (getClassInput(this, 'name').data('nameValid')) {
+			if (className.toLowerCase() === $.trim(getClassInputVal(this, 'name')).toLowerCase()) {
+				conflict = true;
+				return false; /* Break the loop */
 			}
 		}
 	});
-
 	return !conflict;
 }
 
+/* Checks if this is the only default class SO FAR.  Only the first defaulted class on a team is valid */
+function isOnlyDefaultClass(classObj) {
+	if (getClassInputVal(classObj, 'team_default') === 'yes') {
+		var conflict = false;
+		if (isZombieClass(classObj)) {
+			$('#zombieClasses .playerClass').each(function () {
+				if (classObj === this) {
+					return false;
+				}
+				
+				if (getClassInputVal(this, 'team_default') === 'yes') {
+					conflict = true;
+					return false;
+				}
+			});
+		}
+		else if (isHumanClass(classObj)) {
+			$('#humanClasses .playerClass').each(function () {
+				if (classObj === this) {
+					return false;
+				}
+				
+				if (getClassInputVal(this, 'team_default')) {
+					conflict = true;
+					return false;
+				}
+			});
+		}
+		return !conflict;
+	}
+	return true;
+}
+
 function setInputErrorTextVisible(input, visible) {
-	$(input).siblings('.optionError').attr('style', visible ? 'display: normal' : 'display: none;');
+	$(input).parents('.option').children('.optionError').attr('style', visible ? 'display: normal' : 'display: none;');
+}
+
+function setZombieTeamErrorTextVisible(visible) {
+	$('#zombieClasses .teamError').attr('style', visible ? 'display: normal' : 'display: none;');
+}
+
+function setHumanTeamErrorTextVisible(visible) {
+	$('#humanClasses .teamError').attr('style', visible ? 'display: normal' : 'display: none;');
 }
 
 function isClassNameValid(classObj) {
@@ -357,7 +415,7 @@ function isClassEnabledValid(classObj) {
 }
 
 function isClassTeamDefaultValid(classObj) {
-	return isClassInputCompleted(classObj, 'team_default');
+	return (isClassInputCompleted(classObj, 'team_default') && isOnlyDefaultClass(classObj));
 }
 
 function isClassFlagsValid(classObj) {
@@ -548,16 +606,13 @@ function validateCommonOptions(classObj) {
 /* Highlight errors in class by collapsing errorless sections and expanding errored ones. */
 function highlightErrors(classObj) {
 	$('.classSection', classObj).each(function (i, classSection) {
-		collapseSection(classSection, 0);
 		$('input', classSection).each(function (j, input) {
 			valid = (all_validators[getClassInputRawName(classObj, input)])(classObj);
 			if (!valid) {
 				return false;
 			}
 		});
-		if (!valid) {
-			expandSection(classSection, 400);
-		}
+		valid ? collapseSection(classSection, 400) : expandSection(classSection, 400);
 	});
 }
 
@@ -638,6 +693,21 @@ function validateClass(classObj) {
 
 function validateClasses() {
 	var valid = true;
+	
+	/* Ensure there is at least one of each class */
+	var teamValid = (totalZombieClasses > 0);
+	setZombieTeamErrorTextVisible(!teamValid);
+	if (!teamValid) {
+		valid = false;
+	}
+	
+	var teamValid = (totalHumanClasses > 0);
+	setHumanTeamErrorTextVisible(!teamValid);
+	if (!teamValid) {
+		valid = false;
+	}
+	
+	/* Validate each class */
 	$('.playerClass').each(function () {
 		if (!validateClass(this)) {
 			valid = false;
@@ -837,15 +907,19 @@ function inputToFile()
  */
 
 $('#zombieClasses .addClassButton').click(function (event) {
-	var newClass = createZombieClass();
-	collapseClass(newClass, 0);
-	expandClass(newClass, 1000);
+	if (totalClasses < 64) {
+		var newClass = createZombieClass();
+		collapseClass(newClass, 0);
+		expandClass(newClass, 1000);
+	}
 });
 
 $('#humanClasses .addClassButton').click(function (event) {
-	var newClass = createHumanClass();
-	collapseClass(newClass, 0);
-	expandClass(newClass, 1000);
+	if (totalClasses < 64) {
+		var newClass = createHumanClass();
+		collapseClass(newClass, 0);
+		expandClass(newClass, 1000);
+	}
 });
 
 $('img.deleteClassButton').click( function (event) {

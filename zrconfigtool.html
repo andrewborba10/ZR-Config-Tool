@@ -24,8 +24,11 @@ Description: Main web page for the ZR Config Tool.
 			<button type'button' id='generateConfig' onclick='generateConfig();'> Generate playerclasses.txt </button>
 		</aside>
 		<section id='zombieClasses'>
-			<h1> Zombie Classes </h1>
-
+        	<div class='teamHeader'>
+                <h1> Zombie Classes </h1>
+                <p class='teamError' style='display: none;'> You must create at least one zombie class. </p>
+            </div>
+            
 			<div class='accordion'>
 				<article id='zombieClassTemplate'>
 					<div class='classHeader'>
@@ -277,9 +280,11 @@ Description: Main web page for the ZR Config Tool.
 		</section>
 
 		<section id='humanClasses'>
-
-			<h1> Human Classes </h1>
-
+			<div class='teamHeader'>
+                <h1> Human Classes </h1>
+                <p class='teamError' style='display: none;'> You must create at least one human class. </p>
+            </div>
+            
 			<div class='accordion'>
 				<article id='humanClassTemplate'>
 					<div class='classHeader'>

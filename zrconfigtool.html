@@ -34,7 +34,7 @@ Description: Main web page for the ZR Config Tool.
 					</div>
 					<div class='classContent'>
 						<h3> General </h3>
-						<div>
+						<div class='classSection'>
 							<div class='option'>
 								<p class='optionLabel'> Name: </p>
 								<input type='text' class='className optionInput' name='name_#' placeholder='Name' style='width: 175px;' maxlength=64 required />
@@ -94,7 +94,7 @@ Description: Main web page for the ZR Config Tool.
 						</div>
 					
 						<h3 > Model </h3>
-						<div>
+						<div class='classSection'>
 							<div class='option'>
 								<p class='optionLabel'> Model Path: </p>
 								<input type='text' class='optionInput' name='model_path_#' placeholder='models/player/zh/zh_corpse002.mdl' value='models/player/zh/zh_corpse002.mdl' style='width: 300px;' maxlength=256 required />
@@ -132,7 +132,7 @@ Description: Main web page for the ZR Config Tool.
 						</div>
 
 						<h3 > HUD </h3>
-						<div>
+						<div class='classSection'>
 							<div class='option'>
 								<p class='optionLabel'> Overlay Path: </p>
 								<input type='text' class='optionInput' name='overlay_path_#' placeholder='overlays/zr/zvision' value='overlays/zr/zvision' style='width: 300px;' maxlength=256 />
@@ -161,7 +161,7 @@ Description: Main web page for the ZR Config Tool.
 						</div>
 
 						<h3 > Effects </h3>
-						<div>
+						<div class='classSection'>
 							<div class='option'>
 								<p class='optionLabel'> Naplm Burn Time: </p>
 								<input type='number' class='optionInput' name='napalm_time_#' min=0 max=600 placeholder=10.0 value=10.0 required />
@@ -171,8 +171,7 @@ Description: Main web page for the ZR Config Tool.
 						</div>
 
 						<h3 > Player Behavior </h3>
-						<div>
-							
+						<div class='classSection'>
 							<div class='option'>
 								<p class='optionLabel'> Immunity Mode: </p>
 								<input type='text' class='optionInput' name='immunity_mode_#' placeholder='immunity mode' value='none' maxlength=32 required />
@@ -289,7 +288,7 @@ Description: Main web page for the ZR Config Tool.
 					</div>
 					<div class='classContent'>
 						<h3 > General </h3>
-						<div>
+						<div class='classSection'>
 							<div class='option'>
 								<p class='optionLabel'> Name: </p>
 								<input type='text' class='className optionInput' name='name_#' placeholder='Name' style='width: 175px;' maxlength=64 required />
@@ -349,7 +348,7 @@ Description: Main web page for the ZR Config Tool.
 						</div>
 					
 						<h3 > Model </h3>
-						<div>
+						<div class='classSection'>
 							<div class='option'>
 								<p class='optionLabel'> Model Path: </p>
 								<input type='text' class='optionInput' name='model_path_#' placeholder='models/player/zh/zh_corpse002.mdl' value='models/player/zh/zh_corpse002.mdl' style='width: 300px;' maxlength=256 required />
@@ -387,7 +386,7 @@ Description: Main web page for the ZR Config Tool.
 						</div>
 
 						<h3 > HUD </h3>
-						<div>
+						<div class='classSection'>
 							<div class='option'>
 								<p class='optionLabel'> Overlay Path: </p>
 								<input type='text' class='optionInput' name='overlay_path_#' placeholder='overlays/zr/zvision' value='overlays/zr/zvision' style='width: 300px;' maxlength=256 />
@@ -416,7 +415,7 @@ Description: Main web page for the ZR Config Tool.
 						</div>
 
 						<h3 > Effects </h3>
-						<div>
+						<div class='classSection'>
 							<div class='option'>
 								<p class='optionLabel'> Napalm: </p>
 								<div class='optionInput'>
@@ -431,80 +430,81 @@ Description: Main web page for the ZR Config Tool.
 						</div>
 
 						<h3 class='configSectionLabelHover'> Player Behavior </h3>
-						<div class='option'>
-								<p class='optionLabel'> Immunity Mode: </p>
-								<input type='text' class='optionInput' name='immunity_mode_#' placeholder='immunity mode' value='none' maxlength=32 required />
-								<p class='optionError' style='display: none;'> Please enter a value </p>
-								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
-							</div>
+                        <div class='classSection'>
+                            <div class='option'>
+                                <p class='optionLabel'> Immunity Mode: </p>
+                                <input type='text' class='optionInput' name='immunity_mode_#' placeholder='immunity mode' value='none' maxlength=32 required />
+                                <p class='optionError' style='display: none;'> Please enter a value </p>
+                                <p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+                            </div>
 
-							<div class='option'>
-								<p class='optionLabel'> Immunity Amount: </p>
-								<input type='number' class='optionInput' name='immunity_amount_#' min=0 max=300 placeholder=0 value=0 required />
-								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 300 </p>
-								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
-							</div>
+                            <div class='option'>
+                                <p class='optionLabel'> Immunity Amount: </p>
+                                <input type='number' class='optionInput' name='immunity_amount_#' min=0 max=300 placeholder=0 value=0 required />
+                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 300 </p>
+                                <p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+                            </div>
 
-							<div class='option'>
-								<p class='optionLabel'> Immunity Cooldown: </p>
-								<input type='number' class='optionInput' name='immunity_cooldown_#' min=0 max=300 placeholder=0 value=0 required />
-								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 300 </p>
-								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
-							</div>
+                            <div class='option'>
+                                <p class='optionLabel'> Immunity Cooldown: </p>
+                                <input type='number' class='optionInput' name='immunity_cooldown_#' min=0 max=300 placeholder=0 value=0 required />
+                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 300 </p>
+                                <p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+                            </div>
 
-							<div class='option'>
-								<p class='optionLabel'> No Fall Damage: </p>
-								<div class='optionInput'>
-									<p>
-									Yes <input type='radio' name='no_fall_damage_#' value='yes' checked required /> &nbsp;
-									No <input type='radio' name='no_fall_damage_#' value='no' />
-									</p>
-								</div>
-								<p class='optionError' style='display: none;'> Please select an option </p>
-								<p class='optionCaption'> Enable this to block damage from falling. </p>
-							</div>
+                            <div class='option'>
+                                <p class='optionLabel'> No Fall Damage: </p>
+                                <div class='optionInput'>
+                                    <p>
+                                    Yes <input type='radio' name='no_fall_damage_#' value='yes' checked required /> &nbsp;
+                                    No <input type='radio' name='no_fall_damage_#' value='no' />
+                                    </p>
+                                </div>
+                                <p class='optionError' style='display: none;'> Please select an option </p>
+                                <p class='optionCaption'> Enable this to block damage from falling. </p>
+                            </div>
 
-							<div class='option'>
-								<p class='optionLabel'> Health: </p>
-								<input type='number' class='optionInput' name='health_#' min=0 max=100000 placeholder=3200 value=3200 required />
-								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 100000 </p>
-								<p class='optionCaption'> Starting HP. </p>
-							</div>
+                            <div class='option'>
+                                <p class='optionLabel'> Health: </p>
+                                <input type='number' class='optionInput' name='health_#' min=0 max=100000 placeholder=3200 value=3200 required />
+                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 100000 </p>
+                                <p class='optionCaption'> Starting HP. </p>
+                            </div>
 
-							<div class='option'>
-								<p class='optionLabel'> Health Regeneration Interval: </p>
-								<input type='number' class='optionInput' name='health_regen_interval_#' min=0 max=900 placeholder=0.0 value=0.0 required />
-								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 900 </p>
-								<p class='optionCaption'> The health regeneration interval, in seconds.  Use 0.0 to disable. </p>
-							</div>
+                            <div class='option'>
+                                <p class='optionLabel'> Health Regeneration Interval: </p>
+                                <input type='number' class='optionInput' name='health_regen_interval_#' min=0 max=900 placeholder=0.0 value=0.0 required />
+                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 900 </p>
+                                <p class='optionCaption'> The health regeneration interval, in seconds.  Use 0.0 to disable. </p>
+                            </div>
 
-							<div class='option'>
-								<p class='optionLabel'> Health Regeneration Amount: </p>
-								<input type='number' class='optionInput' name='health_regen_amount_#' min=0 max=10000 placeholder=0 value=0.0 required />
-								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 10000 </p>
-								<p class='optionCaption'> How many health points to give per interval.  Regeneration stops when back to starting HP. </p>
-							</div>
+                            <div class='option'>
+                                <p class='optionLabel'> Health Regeneration Amount: </p>
+                                <input type='number' class='optionInput' name='health_regen_amount_#' min=0 max=10000 placeholder=0 value=0.0 required />
+                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 10000 </p>
+                                <p class='optionCaption'> How many health points to give per interval.  Regeneration stops when back to starting HP. </p>
+                            </div>
 
-							<div class='option'>
-								<p class='optionLabel'> Speed: </p>
-								<input type='number' class='optionInput' name='speed_#' min=-200 max=2000 placeholder=390 value=390 required />
-								<p class='optionError' style='display: none;'> Please enter a numerical value between -200 and 200 </p>
-								<p class='optionCaption'> Speed of player.  NOTE: This value depends on the speed method defined in the config file. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
-							</div>
+                            <div class='option'>
+                                <p class='optionLabel'> Speed: </p>
+                                <input type='number' class='optionInput' name='speed_#' min=-200 max=2000 placeholder=390 value=390 required />
+                                <p class='optionError' style='display: none;'> Please enter a numerical value between -200 and 200 </p>
+                                <p class='optionCaption'> Speed of player.  NOTE: This value depends on the speed method defined in the config file. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+                            </div>
 
-							<div class='option'>
-								<p class='optionLabel'> Jump Height: </p>
-								<input type='number' class='optionInput' name='jump_height_#' min=0 max=5 step=0.1 placeholder=1.1  value=1.1 required />
-								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5 </p>
-								<p class='optionCaption'> Jump height multiplier. </p>
-							</div>
+                            <div class='option'>
+                                <p class='optionLabel'> Jump Height: </p>
+                                <input type='number' class='optionInput' name='jump_height_#' min=0 max=5 step=0.1 placeholder=1.1  value=1.1 required />
+                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5 </p>
+                                <p class='optionCaption'> Jump height multiplier. </p>
+                            </div>
 
-							<div class='option'>
-								<p class='optionLabel'> Jump Distance: </p>
-								<input type='number' class='optionInput' name='jump_distance_#' min=0 max=5 step=0.1 placeholder=1.2 value=1.2 required />
-								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5</p>
-								<p class='optionCaption'> Jump distance multiplier. </p>
-							</div>
+                            <div class='option'>
+                                <p class='optionLabel'> Jump Distance: </p>
+                                <input type='number' class='optionInput' name='jump_distance_#' min=0 max=5 step=0.1 placeholder=1.2 value=1.2 required />
+                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5</p>
+                                <p class='optionCaption'> Jump distance multiplier. </p>
+                            </div>
 						</div>
 					</div>
 				</article>

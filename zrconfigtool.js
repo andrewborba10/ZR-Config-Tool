@@ -47,8 +47,6 @@ function getClassInputSelector(classObj, input) {
 	return 'input[' + 'name=' + getClassInputName(classObj, input) + ']';
 }
 
-
-
 /**
  * Returns a jquery object containing input elements (only more than one for checkboxes, radio buttons, etc)
  */
@@ -274,10 +272,17 @@ function deleteClass(classObj) {
  */
 
 function setClassHeaderInvalid(classObj) {
-	
+	var classHeader = $('.classHeader h2', classObj);
+	if (!classHeader.hasClass('invalidClassHeaderLabel')) {
+		classHeader.addClass('invalidClassHeaderLabel');
+	}
 }
 
 function setClassHeaderValid(classObj) {
+	var classHeader = $('.classHeader h2', classObj);
+	if (classHeader.hasClass('invalidClassHeaderLabel')) {
+		classHeader.removeClass('invalidClassHeaderLabel');
+	}
 }
 
 function updateHeaderStyle(classObj, valid) {
@@ -289,16 +294,25 @@ function updateHeaderStyle(classObj, valid) {
 }
 
 function setHeaderText(classObj, text) {
-	var classHeader = $('.classHeader', classObj)[0];
-	$('h2', classHeader).html(text);
+	$('.classHeader h2', classObj).html(text);
 }
 
 function updateHeaderText(classObj) {
+	var headerText = '';
+	
 	if (isClassInputCompleted(classObj, 'name')) {
-		setHeaderText(classObj, getClassInputVal(classObj, 'name'));
+		headerText += getClassInputVal(classObj, 'name');
 	} else {
-		setHeaderText(classObj, '(Unnamed)');
+		headerText += '(Unnamed)';
 	}
+	
+	if ($(classObj).data('valid')) {
+		headerText += '';
+	} else {
+		headerText += ' (incomplete)';
+	}
+	
+	setHeaderText(classObj, headerText);
 }
 
 /* Config option validation functions */
@@ -309,9 +323,10 @@ function isClassNameUnique(classObj) {
 	var className = $.trim(getClassInputVal(classObj, 'name'));
 	$('.playerClass').each(function () {
 		if (classObj !== this) {
-			if ($(this).data('valid'))
+			if (getClassInput(classObj, 'name').data('nameValid'))
 			{
-				if (className === $.trim(getClassInputVal(this, 'name'))) {
+				console.log('isclassunique');
+				if (className.toLowerCase() === $.trim(getClassInputVal(this, 'name')).toLowerCase()) {
 					conflict = true;
 					return false; /* Break the loop */
 				}
@@ -329,7 +344,7 @@ function setInputErrorTextVisible(input, visible) {
 function isClassNameValid(classObj) {
 	var input = getClassInput(classObj, 'name');
 	var valid = isClassInputCompleted(classObj, 'name') && isClassNameUnique(classObj);
-	$(classObj).data('valid', valid);
+	getClassInput(classObj, 'name').data('nameValid', valid);
 	return valid;
 }
 
@@ -530,6 +545,22 @@ function validateCommonOptions(classObj) {
 	return valid;
 }
 
+/* Highlight errors in class by collapsing errorless sections and expanding errored ones. */
+function highlightErrors(classObj) {
+	$('.classSection', classObj).each(function (i, classSection) {
+		collapseSection(classSection, 0);
+		$('input', classSection).each(function (j, input) {
+			valid = (all_validators[getClassInputRawName(classObj, input)])(classObj);
+			if (!valid) {
+				return false;
+			}
+		});
+		if (!valid) {
+			expandSection(classSection, 400);
+		}
+	});
+}
+
 /*
  * Verify common attributes and zombie-specific ones as well, return true if valid
  */
@@ -544,7 +575,22 @@ function validateZombieClass(classObj) {
 			}
 		});
 	}
+	
+	/* Cache the result of this validation */
+	$(classObj).data('valid', valid);
+	
+	/* Update header */
 	updateHeaderStyle(classObj, valid);
+	updateHeaderText(classObj)
+	
+	/* Slide up if valid, slide down if invalid */
+	valid ? collapseClass(classObj, 400) : expandClass(classObj, 400);
+	
+	/* Highlight errors */
+	if (!valid) {
+		highlightErrors(classObj);
+	}
+	
 	return valid;
 }
 
@@ -562,7 +608,22 @@ function validateHumanClass(classObj) {
 			}
 		});
 	}
+	
+	/* Cache the result of this validation */
+	$(classObj).data('valid', valid);
+	
+	/* Update header */
 	updateHeaderStyle(classObj, valid);
+	updateHeaderText(classObj);
+	
+	/* Slide up if valid, slide down if invalid */
+	valid ? collapseClass(classObj, 400) : expandClass(classObj, 400);
+	
+	/* Highlight errors */
+	if (!valid) {
+		highlightErrors(classObj);
+	}
+	
 	return valid;
 }
 
@@ -777,14 +838,14 @@ function inputToFile()
 
 $('#zombieClasses .addClassButton').click(function (event) {
 	var newClass = createZombieClass();
-	$(newClass).slideUp(0);
-	$(newClass).slideDown(1000);
+	collapseClass(newClass, 0);
+	expandClass(newClass, 1000);
 });
 
 $('#humanClasses .addClassButton').click(function (event) {
 	var newClass = createHumanClass();
-	$(newClass).slideUp(0);
-	$(newClass).slideDown(1000);
+	collapseClass(newClass, 0);
+	expandClass(newClass, 1000);
 });
 
 $('img.deleteClassButton').click( function (event) {
@@ -808,23 +869,36 @@ function generateConfig() {
  * Accordion
  */
 
+function expandClass(classObj, duration) {
+	$(classObj).children('.classContent').slideDown(duration);
+}
+
+function collapseClass(classObj, duration) {
+	$(classObj).children('.classContent').slideUp(duration);
+}
+
+function expandSection(sectionObj, duration) {
+	$(sectionObj).slideDown(duration);
+}
+
+function collapseSection(sectionObj, duration) {
+	$(sectionObj).slideUp(duration);
+}
+
 function toggleAccordionElement(targetDiv) {
-	if(targetDiv.next().is(':hidden')) {
-		targetDiv.next().slideDown();
+	if(targetDiv.is(':hidden')) {
+		targetDiv.slideDown();
 	} else {
-		targetDiv.next().slideUp();
+		targetDiv.slideUp();
 	}
 }
 
 function initAccordions() {
-	parentDivs = $('.accordion div.classContent'),
-	childDivs = $('.accordion h3').siblings('div');
-	
 	$('.accordion h2').click(function(){
-		toggleAccordionElement($(this).parent());
+		toggleAccordionElement($(this).parents('.classHeader').siblings('.classContent'));
 	});
 	$('.accordion h3').click(function(){
-		toggleAccordionElement($(this));
+		toggleAccordionElement($(this).next('.classSection'));
 	});
 }
 

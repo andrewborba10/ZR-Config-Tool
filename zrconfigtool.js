@@ -75,7 +75,7 @@ function getClassInputVal(classObj, input) {
 	var classInputType = classInput.attr('type');
 	switch(classInputType) {
 		case 'text':
-			return classInput.val();
+			return formatInputVal(classInput.val());
 		case 'radio':
 			return classInput.filter(':checked').val();
 		case 'checkbox':
@@ -575,6 +575,11 @@ function isClassJumpDistanceValid(classObj) {
 	return (isClassInputCompleted(classObj, 'jump_distance') && value >= 0 && value <= 5);
 }
 
+/* A class is a default class if it's enabled, public, and default */
+function isClassDefault(classObj) {
+	return (getClassInputVal(classObj, 'enabled') === 'yes' && getClassInputVal(classObj, 'group') === '' && getClassInputVal(classObj, 'team_default') === 'yes');
+}
+
 /*
  * Maps of common, zombie, and human validator functions (mapping input name to function)
  */
@@ -685,6 +690,7 @@ function validateClass(classObj) {
 	return valid;
 }
 
+/* Error flags */
 var ERROR_NO_DEFAULT_CLASS = 0x01;
 var ERROR_INVALID_CLASSES = 0x02;
 
@@ -692,12 +698,20 @@ function validateClasses() {
 	/* Count valid/invalid classes on each team */
 	var invalidZombieClasses = 0;
 	var invalidHumanClasses = 0;
+	var hasDefaultZombieClass = false;
+	var hasDefaultHumanClass = false;
 	$('.playerClass').each(function () {
 		if (!validateClass(this)) {
 			if (isZombieClass(this)) {
 				invalidZombieClasses++;
 			} else if (isHumanClass(this)) {
 				invalidHumanClasses++;
+			}
+		} else if (isClassDefault(this)) { /* This class is valid, so now check if it can be a default class */
+			if (isZombieClass(this)) {
+				hasDefaultZombieClass = true;
+			} else if (isHumanClass(this)) {
+				hasDefaultHumanClass = true;
 			}
 		}
 	});
@@ -706,6 +720,7 @@ function validateClasses() {
 	var fZombieErrors = 0;
 	var fHumanErrors = 0;
 	
+	/* Read data and set error bits */
 	if (invalidZombieClasses > 0) {
 		fZombieErrors |= ERROR_INVALID_CLASSES;
 	}
@@ -714,11 +729,17 @@ function validateClasses() {
 		fHumanErrors |= ERROR_INVALID_CLASSES;
 	}
 	
+	if (!hasDefaultZombieClass) {
+		fZombieErrors |= ERROR_NO_DEFAULT_CLASS;
+	}
+	
+	if (!hasDefaultHumanClass) {
+		fHumanErrors |= ERROR_NO_DEFAULT_CLASS;
+	}
+	
 	/* Display or hide the error box */
 	setZombieTeamErrorBoxVisible((fZombieErrors > 0), fZombieErrors);
 	setHumanTeamErrorBoxVisible((fHumanErrors > 0), fHumanErrors);
-	
-	
 	
 	return (fZombieErrors == 0 && fHumanErrors == 0);
 }

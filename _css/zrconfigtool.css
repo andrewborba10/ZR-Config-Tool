@@ -123,7 +123,6 @@ section h3 {
 article {
 	background: #666;
 	margin: 30px;
-	padding-bottom: 1px; /** CSS bug?  When anything > 0 it expands to the margin defined in .classContent */
 }
 
 .sectionHeader {
@@ -137,7 +136,7 @@ article {
 }
 
 .teamErrors {
-	border: 3px solid #cc0000;
+	border: 2px solid #cc0000;
 }
 
 .teamErrors .sectionContent {
@@ -176,11 +175,11 @@ footer p {
 }
 
 #zombieClasses .playerClass {
-	border: 3px solid #770000;
+	border: 2px solid #770000;
 }
 
 #humanClasses .playerClass {
-	border: 3px solid #000077;
+	border: 2px solid #000077;
 }
 
 #zombieClasses .classHeader {

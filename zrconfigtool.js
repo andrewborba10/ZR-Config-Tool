@@ -10,6 +10,16 @@
     sel.addRange(range);
 }
 
+/* For the class name which isn't allowed to have quotes */
+function stripQuotes(name) {
+	return String(name).replace(/"/g, '');
+}
+
+/* Trim and strip quotes */
+function formatInputVal(val) {
+	return stripQuotes($.trim(val));
+}
+
 /* Class input utilities */
 
 function isZombieClass(classObj) {
@@ -83,7 +93,7 @@ function isClassInputCompleted(classObj, input) {
 	var classInputType = classInput.attr('type');
 	switch(classInputType) {
 		case 'text':
-			return $.trim(classInput.val()) !== '';
+			return formatInputVal(classInput.val()) !== '';
 		case 'radio':
 			return classInput.is(':checked');
 		case 'checkbox':
@@ -159,6 +169,7 @@ function kvAddComment(comment) {
 
 /* Create a node, going 1 level deeper into the tree */
 function kvStartNode(name) {
+	name = stripQuotes(name);
 	kvIndent();
 	kvTree += '\"' + name + '\"';
 	kvNewLine();
@@ -180,6 +191,8 @@ function kvEndNode() {
 
 /* Add a key-value pair to the tree. */
 function kvAddKeyValuePair(key, value) {
+	key = stripQuotes(key);
+	value = stripQuotes(value);
 	kvIndent();
 	kvTree += '\"' + key + '\"';
 	/* Determine spacing */
@@ -312,7 +325,7 @@ function updateHeaderStyle(classObj, valid) {
 }
 
 function setHeaderText(classObj, text) {
-	$('.classHeader h2', classObj).html(text);
+	$('.classHeader h2', classObj).html(stripQuotes(text));
 }
 
 function updateHeaderText(classObj) {
@@ -338,14 +351,14 @@ function updateHeaderText(classObj) {
 function isClassNameUnique(classObj) {
 	/** Check if the value of the class name input conflicts with any other classes. */
 	var conflict = false;
-	var className = $.trim(getClassInputVal(classObj, 'name'));
+	var className = formatInputVal(getClassInputVal(classObj, 'name'));
 	$('.playerClass').each(function () {
 		if (classObj === this) {
 			return false;
 		}
 		
 		if (getClassInput(this, 'name').data('nameValid')) {
-			if (className.toLowerCase() === $.trim(getClassInputVal(this, 'name')).toLowerCase()) {
+			if (className.toLowerCase() === formatInputVal(getClassInputVal(this, 'name')).toLowerCase()) {
 				conflict = true;
 				return false; /* Break the loop */
 			}

@@ -388,28 +388,41 @@ function isOnlyDefaultClass(classObj) {
 }
 
 function setInputErrorTextVisible(input, visible) {
-	$(input).parents('.option').children('.optionError').attr('style', visible ? 'display: normal' : 'display: none;');
+	var error = $(input).parents('.option').children('.optionError');
+	if (error.is(':hidden') === visible) {
+		error.toggle('slide', 500);
+	}
 }
 
 function updateErrorBoxErrors(errorBox, fErrors) {
 	$('.sectionContent li', errorBox).each(function (i, val) {
-		$(val).attr('style', ((1 << i) & fErrors) ? 'display: normal' : 'display: none;');
+		$(val).toggle(Boolean((1 << i) & fErrors));
 	});
 }
 
 function setZombieTeamErrorBoxVisible(visible, fErrors) {
 	var errorBox = $('#zombieClasses .teamErrors');
-	errorBox.attr('style', visible ? 'display: normal' : 'display: none;');
 	if (visible) {
 		updateErrorBoxErrors(errorBox, fErrors);
+	}
+	
+	if (visible && errorBox.is(':hidden')) {
+		errorBox.slideDown(400);
+	} else if (!visible && !errorBox.is(':hidden')) {
+		errorBox.slideUp(400);
 	}
 }
 
 function setHumanTeamErrorBoxVisible(visible, fErrors) {
 	var errorBox = $('#humanClasses .teamErrors');
-	errorBox.attr('style', visible ? 'display: normal' : 'display: none;');
 	if (visible) {
 		updateErrorBoxErrors(errorBox, fErrors);
+	}
+	
+	if (visible && errorBox.is(':hidden')) {
+		errorBox.slideDown(400);
+	} else if (!visible && !errorBox.is(':hidden')) {
+		errorBox.slideUp(400);
 	}
 }
 

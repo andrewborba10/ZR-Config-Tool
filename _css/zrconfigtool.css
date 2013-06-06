@@ -137,7 +137,7 @@ article {
 }
 
 .teamErrors {
-	border: 1px solid #cc0000;
+	border: 3px solid #cc0000;
 }
 
 .teamErrors .sectionContent {
@@ -148,11 +148,6 @@ article {
 .teamErrors ul {
 	margin: 20px;
 	list-style-type: disc;
-}
-
-/* Config sections */
-article h3 {
-	border-bottom: 1px solid black;
 }
 
 /* Footer styles */
@@ -181,11 +176,11 @@ footer p {
 }
 
 #zombieClasses .playerClass {
-	border: 1px solid #770000;
+	border: 3px solid #770000;
 }
 
 #humanClasses .playerClass {
-	border: 1px solid #000077;
+	border: 3px solid #000077;
 }
 
 #zombieClasses .classHeader {
@@ -227,11 +222,11 @@ footer p {
 	color: #3333aa;
 }
 
-.configSection {
-	margin: 20px;
+.playerClass h3 {
 }
 
 .classContent h3 {
+	border-bottom: 1px solid black;
 	margin: 20px 0px;
 	-o-transition:.5s;
 	-ms-transition:.5s;

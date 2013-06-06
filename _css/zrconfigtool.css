@@ -90,33 +90,26 @@ section h3 {
 	color: black;
 }
 
-.teamHeader {
-}
-
 #zombieClasses .teamHeader {
-	border-bottom: 1px solid #550000;
+	border-bottom: 1px solid #770000;
 }
 
 #humanClasses .teamHeader {
-	border-bottom: 1px solid #000055;
-}
-
-.teamHeader h1 {
-	display: inline-block;
+	border-bottom: 1px solid #000077;
 }
 
 #zombieClasses .teamHeader h1 {
-	-o-text-stroke-width: 2px #550000;
-	-ms-text-stroke-width: 2px #550000;
-	-moz-text-stroke-width: 2px #550000;
-	-webkit-text-stroke: 2px #550000;
+	-o-text-stroke-width: 2px #770000;
+	-ms-text-stroke-width: 2px #770000;
+	-moz-text-stroke-width: 2px #770000;
+	-webkit-text-stroke: 2px #770000;
 }
 
 #humanClasses .teamHeader h1 {
-	-o-text-stroke-width: 2px #000055;
-	-ms-text-stroke-width: 2px #000055;
-	-moz-text-stroke-width: 2px #000055;
-	-webkit-text-stroke: 2px #000055;
+	-o-text-stroke-width: 2px #000077;
+	-ms-text-stroke-width: 2px #000077;
+	-moz-text-stroke-width: 2px #000077;
+	-webkit-text-stroke: 2px #000077;
 }
 
 .teamError {
@@ -131,6 +124,30 @@ article {
 	background: #666;
 	margin: 30px;
 	padding-bottom: 1px; /** CSS bug?  When anything > 0 it expands to the margin defined in .classContent */
+}
+
+.sectionHeader {
+	position: relative;
+	overflow: hidden;
+	height: 32px;
+}
+
+.teamErrors .sectionHeader {
+	background: #cc0000;
+}
+
+.teamErrors {
+	border: 1px solid #cc0000;
+}
+
+.teamErrors .sectionContent {
+	color: black;
+	font-weight: bold;
+}
+
+.teamErrors ul {
+	margin: 20px;
+	list-style-type: disc;
 }
 
 /* Config sections */
@@ -163,22 +180,29 @@ footer p {
 	display: none;
 }
 
-.classContent {
-	margin: 20px;
+#zombieClasses .playerClass {
+	border: 1px solid #770000;
 }
 
-.classHeader {
-	position: relative;
-	overflow: hidden;
-	height: 32px;
+#humanClasses .playerClass {
+	border: 1px solid #000077;
 }
 
 #zombieClasses .classHeader {
-	background: #550000;
+	background: #770000;
 }
 
 #humanClasses .classHeader {
-	background: #000055;
+	background: #000077;
+}
+
+.sectionContent {
+	margin: 20px;
+}
+
+.sectionHeader h2 {
+	margin: 0 auto;
+	text-align: center;
 }
 
 .classHeader .deleteClassButton {
@@ -191,24 +215,16 @@ footer p {
 	width: 28px;
 }
 
-.classHeader h2 {
-	margin: 0 auto;
-	text-align: center;
-}
-
-.classHeaderLabel {
-	color: white;
-	font-style: normal;
+.invalidClassHeaderLabel {
+	font-style: italic;
 }
 
 #zombieClasses .invalidClassHeaderLabel {
 	color: #aa3333;
-	font-style: italic;
 }
 
 #humanClasses .invalidClassHeaderLabel {
 	color: #3333aa;
-	font-style: italic;
 }
 
 .configSection {
@@ -225,11 +241,11 @@ footer p {
 }
 
 #zombieClasses .classContent h3:hover {
-	color: #550000;
+	color: #770000;
 }
 
 #humanClasses .classContent h3:hover {
-	color: #000055;
+	color: #000077;
 }
 
 .option {
@@ -252,6 +268,7 @@ footer p {
 	float: left;
 	clear: right;
 	color: #990000;
+	font-weight: bold;
 }
 
 .optionCaption {
@@ -261,25 +278,32 @@ footer p {
 }
 
 #zombieClasses .optionCaption {
-	color: #550000;
+	color: #770000;
 }
 
 #humanClasses .optionCaption {
-	color: #000055;
+	color: #000077;
 }
 
 .addClassButton {
 	cursor: pointer;
-	text-align: center;
-	height: 32px;
+	background: black;
 }
 
 #zombieClasses .addClassButton {
-	background: #550000;
+	border: 3px solid #770000;
 }
 
 #humanClasses .addClassButton {
-	background: #000055;
+	border: 3px solid #000077;
+}
+
+#zombieClasses .addClassButton h2 {
+	color: #770000;
+}
+
+#humanClasses .addClassButton h2 {
+	color: #000077;
 }
 
 /* Accordion styles */

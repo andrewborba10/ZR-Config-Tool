@@ -391,12 +391,26 @@ function setInputErrorTextVisible(input, visible) {
 	$(input).parents('.option').children('.optionError').attr('style', visible ? 'display: normal' : 'display: none;');
 }
 
-function setZombieTeamErrorTextVisible(visible) {
-	$('#zombieClasses .teamError').attr('style', visible ? 'display: normal' : 'display: none;');
+function updateErrorBoxErrors(errorBox, fErrors) {
+	$('.sectionContent li', errorBox).each(function (i, val) {
+		$(val).attr('style', ((1 << i) & fErrors) ? 'display: normal' : 'display: none;');
+	});
 }
 
-function setHumanTeamErrorTextVisible(visible) {
-	$('#humanClasses .teamError').attr('style', visible ? 'display: normal' : 'display: none;');
+function setZombieTeamErrorBoxVisible(visible, fErrors) {
+	var errorBox = $('#zombieClasses .teamErrors');
+	errorBox.attr('style', visible ? 'display: normal' : 'display: none;');
+	if (visible) {
+		updateErrorBoxErrors(errorBox, fErrors);
+	}
+}
+
+function setHumanTeamErrorBoxVisible(visible, fErrors) {
+	var errorBox = $('#humanClasses .teamErrors');
+	errorBox.attr('style', visible ? 'display: normal' : 'display: none;');
+	if (visible) {
+		updateErrorBoxErrors(errorBox, fErrors);
+	}
 }
 
 function isClassNameValid(classObj) {
@@ -588,24 +602,11 @@ function validateInputElement(classObj, inputName) {
 	return !invalid;
 }
 
-/*
- * Validate all common options, displaying error text if not valid.
- */
-function validateCommonOptions(classObj) {
-	var valid = true;
-	$.each(common_validators, function (inputName, validator) {
-		var invalid = !(validator)(classObj);
-		setInputErrorTextVisible(getClassInput(classObj, inputName), invalid);
-		if (invalid) {
-			valid = false;
-		}
-	});
-	return valid;
-}
-
 /* Highlight errors in class by collapsing errorless sections and expanding errored ones. */
 function highlightErrors(classObj) {
+	var valid;
 	$('.classSection', classObj).each(function (i, classSection) {
+		valid = true;
 		$('input', classSection).each(function (j, input) {
 			valid = (all_validators[getClassInputRawName(classObj, input)])(classObj);
 			if (!valid) {
@@ -617,52 +618,28 @@ function highlightErrors(classObj) {
 }
 
 /*
- * Verify common attributes and zombie-specific ones as well, return true if valid
+ * Run the validation functions on this class depending on team, return true if valid.
  */
-function validateZombieClass(classObj) {
-	var valid = validateCommonOptions(classObj);
-	if (valid) {
-		$.each(zombie_validators, function (inputName, validator) {
-			var invalid = !(validator)(classObj);
-			setInputErrorTextVisible(getClassInput(classObj, inputName), invalid);
-			if (invalid) {
-				valid = false;
-			}
-		});
+function validateClass(classObj) {
+	/* Object to hold validators for this team. */
+	var validators = new Object();
+	
+	/* Extend the validators object to hold validator functions for the appropriate team */
+	if (isZombieClass(classObj)) {
+		 $.extend(validators, common_validators, zombie_validators);
+	} else if (isHumanClass(classObj)) {
+		 $.extend(validators, common_validators, human_validators);
 	}
-	
-	/* Cache the result of this validation */
-	$(classObj).data('valid', valid);
-	
-	/* Update header */
-	updateHeaderStyle(classObj, valid);
-	updateHeaderText(classObj)
-	
-	/* Slide up if valid, slide down if invalid */
-	valid ? collapseClass(classObj, 400) : expandClass(classObj, 400);
-	
-	/* Highlight errors */
-	if (!valid) {
-		highlightErrors(classObj);
-	}
-	
-	return valid;
-}
 
-/*
- * Verify common attributes and human-specific ones as well, return true if valid
- */
-function validateHumanClass(classObj) {
-	var valid = validateCommonOptions(classObj);
-	if (valid) {
-		$.each(human_validators, function (inputName, validator) {
-			var invalid = !(validator)(classObj);
-			setInputErrorTextVisible(getClassInput(classObj, inputName), invalid);
-			if (invalid) {
-				valid = false;
-			}
-		});
-	}
+	/* Validate */
+	var valid = true;
+	$.each(validators, function (inputName, validator) {
+		var invalid = !(validator)(classObj);
+		setInputErrorTextVisible(getClassInput(classObj, inputName), invalid);
+		if (invalid) {
+			valid = false;
+		}
+	});
 	
 	/* Cache the result of this validation */
 	$(classObj).data('valid', valid);
@@ -682,38 +659,42 @@ function validateHumanClass(classObj) {
 	return valid;
 }
 
-function validateClass(classObj) {
-	if (isZombieClass(classObj)) {
-		return validateZombieClass(classObj);
-	} else if (isHumanClass(classObj)) {
-		return validateHumanClass(classObj);
-	}
-	return false;
-}
+var ERROR_NO_DEFAULT_CLASS = 0x01;
+var ERROR_INVALID_CLASSES = 0x02;
 
 function validateClasses() {
-	var valid = true;
-	
-	/* Ensure there is at least one of each class */
-	var teamValid = (totalZombieClasses > 0);
-	setZombieTeamErrorTextVisible(!teamValid);
-	if (!teamValid) {
-		valid = false;
-	}
-	
-	var teamValid = (totalHumanClasses > 0);
-	setHumanTeamErrorTextVisible(!teamValid);
-	if (!teamValid) {
-		valid = false;
-	}
-	
-	/* Validate each class */
+	/* Count valid/invalid classes on each team */
+	var invalidZombieClasses = 0;
+	var invalidHumanClasses = 0;
 	$('.playerClass').each(function () {
 		if (!validateClass(this)) {
-			valid = false;
+			if (isZombieClass(this)) {
+				invalidZombieClasses++;
+			} else if (isHumanClass(this)) {
+				invalidHumanClasses++;
+			}
 		}
 	});
-	return valid;
+	
+	/* Variables to hold a bit field of errors for each team.  Each bit corresponds to the index of the <li> element in the 'Errors' box. */
+	var fZombieErrors = 0;
+	var fHumanErrors = 0;
+	
+	if (invalidZombieClasses > 0) {
+		fZombieErrors |= ERROR_INVALID_CLASSES;
+	}
+	
+	if (invalidHumanClasses > 0) {
+		fHumanErrors |= ERROR_INVALID_CLASSES;
+	}
+	
+	/* Display or hide the error box */
+	setZombieTeamErrorBoxVisible((fZombieErrors > 0), fZombieErrors);
+	setHumanTeamErrorBoxVisible((fHumanErrors > 0), fHumanErrors);
+	
+	
+	
+	return (fZombieErrors == 0 && fHumanErrors == 0);
 }
 
 /* Update header when any input is touched */
@@ -969,7 +950,7 @@ function toggleAccordionElement(targetDiv) {
 
 function initAccordions() {
 	$('.accordion h2').click(function(){
-		toggleAccordionElement($(this).parents('.classHeader').siblings('.classContent'));
+		toggleAccordionElement($(this).parents('.sectionHeader').siblings('.sectionContent'));
 	});
 	$('.accordion h3').click(function(){
 		toggleAccordionElement($(this).next('.classSection'));

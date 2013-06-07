@@ -948,10 +948,12 @@ $('#humanClasses .addClassButton').click(function (event) {
 });
 
 $('img.deleteClassButton').click( function (event) {
-	var classObj = getClassObjFromElement(this);
-	$(classObj).hide('blind', 400, function () {
-		deleteClass(classObj);
-	});
+	if (confirm('This class will be deleted.')) {
+		var classObj = getClassObjFromElement(this);
+		$(classObj).hide('blind', 400, function () {
+			deleteClass(classObj);
+		});
+	}
 	
 	/* Block the default a tag behavior */
 	event.preventDefault();

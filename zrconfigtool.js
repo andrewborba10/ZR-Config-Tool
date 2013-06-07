@@ -337,12 +337,6 @@ function updateHeaderText(classObj) {
 		headerText += '(Unnamed)';
 	}
 	
-	if ($(classObj).data('valid')) {
-		headerText += '';
-	} else {
-		headerText += ' (incomplete)';
-	}
-	
 	setHeaderText(classObj, headerText);
 }
 
@@ -679,6 +673,9 @@ function validateClass(classObj) {
 	updateHeaderStyle(classObj, valid);
 	updateHeaderText(classObj);
 	
+	/* Change outline to error red if invalid */
+	$(classObj).attr('style', valid ? '' : 'border: 1px solid #cc0000');
+	
 	/* Slide up if valid, slide down if invalid */
 	valid ? collapseClass(classObj, 400) : expandClass(classObj, 400);
 	
@@ -938,7 +935,7 @@ $('#zombieClasses .addClassButton').click(function (event) {
 	if (totalClasses < 64) {
 		var newClass = createZombieClass();
 		collapseClass(newClass, 0);
-		expandClass(newClass, 1000);
+		expandClass(newClass, 400);
 	}
 });
 
@@ -946,13 +943,13 @@ $('#humanClasses .addClassButton').click(function (event) {
 	if (totalClasses < 64) {
 		var newClass = createHumanClass();
 		collapseClass(newClass, 0);
-		expandClass(newClass, 1000);
+		expandClass(newClass, 400);
 	}
 });
 
 $('img.deleteClassButton').click( function (event) {
 	var classObj = getClassObjFromElement(this);
-	$('.classContent', classObj).slideUp(500, function () {
+	$(classObj).hide('blind', 400, function () {
 		deleteClass(classObj);
 	});
 	

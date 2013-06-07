@@ -4,24 +4,24 @@
  * Description: Style sheet for the ZR Config Tool.
  */
 
-/*Global styles -----------------------------------------------------------------------------------------------------------*/
+/* Global styles */
 
 html {
-	background: black;
+	background: url(../_images/background.jpg) fixed, black;
 }
 
 body {
 	width: 800px;
 	margin: 0 auto;
-	color: #fff;
+	color: #aaa;
 	font: 100% Arial, Helvetica, sans-serif;
 	font-weight:normal;
 	font-style:normal;
 }
 
 a {
-	color: black;
-	text-decoration: underline;
+	color: #aaa;
+	text-decoration: none;
 	font-weight: bold;
 }
 
@@ -32,37 +32,113 @@ a:hover {
 /* Header styles */
 
 header {
-	height: 165px;
-	background: url(../_images/zrlogo.png) no-repeat left center, #666;
+	width: 0 auto;
+	background: none;
+	margin-top: 75px;
+	margin-bottom: 25px;
 	overflow: hidden;
-	margin-bottom: 0.5em;
 }
 
 header h1 {
-	color: black;
-	font-family: Courier;
-	font-size: 3em;
+	color: #1F1F1F;
+	text-align: center;
+	text-shadow: -1px -1px 1px #333, 1px 1px 1px #ccc;
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 2.3em;
 	font-weight: normal;
+	letter-spacing: 0.3em;
 	text-transform: uppercase;
-	padding-top: 100px;
-	padding-left: 450px;
+}
+
+/* Nav styles */
+
+nav {
+    background: url('../_images/menu_bg.png') no-repeat center transparent;
+    clear: both;
+    font-size: 12px;
+    height: 58px;
+    position: relative;
+	margin-bottom: 30px;
+	-o-border-radius: 15px;
+	-ms-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+}
+
+nav ul {
+	margin: 0 auto;
+}
+
+nav ul li {
+    background: url('../_images/menu_line.png') no-repeat scroll right 5px transparent;
+    float: left;
+    position: relative;
+}
+
+nav ul li a {
+    color: white;
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 1.2em;
+	letter-spacing: 0.2em;
+    font-weight: normal;
+    text-decoration: none;
+    padding: 22px 25px;
+    display: block;
+}
+
+nav ul li:hover > a {
+    color: #00B4FF;
+}
+
+#lavalamp {
+    background: url('../_images/lavalamp.png') no-repeat scroll 0 0 transparent;
+    width: 64px;
+    height: 16px;
+    position: absolute;
+	left: 140px;
+
+    -moz-transition: all 300ms ease;
+    -ms-transition: all 300ms ease;
+    -o-transition: all 300ms ease;
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
+}
+
+#lavalamp:hover {
+    -moz-transition-duration: 3000s;
+    -ms-transition-duration: 3000s;
+    -o-transition-duration: 3000s;
+    -webkit-transition-duration: 3000s;
+    transition-duration: 3000s;
+}
+
+nav ul li:nth-of-type(1):hover ~ #lavalamp {
+    left: 12px;
+}
+nav ul li:nth-of-type(2):hover ~ #lavalamp {
+    left: 140px;
+}
+nav ul li:nth-of-type(3):hover ~ #lavalamp {
+    left: 300px;
+}
+nav ul li:nth-of-type(4):hover ~ #lavalamp {
+    left: 255px;
 }
 
 /* Aside styles */
+
 aside {
 	position: fixed;
 	right: 5%;
 }
 
 
-/* Section styles.
- * There are two sections, one for zombie classes and one for human.
- */
+/* Section styles. */
 
 section {
 	background: none;
 	min-height: 300px;
-	margin: 30px 0px;
 	overflow: hidden;
 }
 
@@ -81,72 +157,46 @@ section h1 {
 }
 
 section h2 {
-	color: white;
+	color: black;
 	font-size: 1.6em;
 }
 
 section h3 {
-	font-size: 1.5em;
 	color: black;
-}
-
-#zombieClasses .teamHeader {
-	border-bottom: 1px solid #770000;
-}
-
-#humanClasses .teamHeader {
-	border-bottom: 1px solid #000077;
+	font-size: 1.5em;
 }
 
 #zombieClasses .teamHeader h1 {
-	-o-text-stroke-width: 2px #770000;
-	-ms-text-stroke-width: 2px #770000;
-	-moz-text-stroke-width: 2px #770000;
-	-webkit-text-stroke: 2px #770000;
+	color: #1C1C1C;
+	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #660000;
+	font-family: Impact, Charcoal, sans-serif;
+	letter-spacing: 0.3em;
 }
 
 #humanClasses .teamHeader h1 {
-	-o-text-stroke-width: 2px #000077;
-	-ms-text-stroke-width: 2px #000077;
-	-moz-text-stroke-width: 2px #000077;
-	-webkit-text-stroke: 2px #000077;
-}
-
-.teamError {
-	display: inline;
-	margin-left: 20px;
-	color: #990000;
+	color: #1C1C1C;
+	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #000066;
+	font-family: Impact, Charcoal, sans-serif;
+	letter-spacing: 0.3em;
 }
 
 /* Article styles */
 
 article {
-	background: #666;
+	background: #222;
 	margin: 30px;
+	-o-border-radius: 15px;
+	-ms-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
 }
 
 .sectionHeader {
+	background: none;
 	position: relative;
 	overflow: hidden;
 	height: 32px;
-}
-
-.teamErrors .sectionHeader {
-	background: #cc0000;
-}
-
-.teamErrors {
-	border: 2px solid #cc0000;
-}
-
-.teamErrors .sectionContent {
-	color: black;
-	font-weight: bold;
-}
-
-.teamErrors ul {
-	margin: 20px;
-	list-style-type: disc;
 }
 
 /* Footer styles */
@@ -156,7 +206,6 @@ footer {
 }
 
 footer p {
-    color: black;
     font-size: 70%;
     font-family: tahoma, sans-serif;
     text-align: center;
@@ -175,28 +224,51 @@ footer p {
 }
 
 #zombieClasses .playerClass {
-	border: 2px solid #770000;
+	border: 1px solid #770000;
 }
 
 #humanClasses .playerClass {
-	border: 2px solid #000077;
-}
-
-#zombieClasses .classHeader {
-	background: #770000;
-}
-
-#humanClasses .classHeader {
-	background: #000077;
+	border: 1px solid #000077;
 }
 
 .sectionContent {
 	margin: 20px;
 }
 
+.teamErrors {
+	border: 1px solid #cc0000;
+}
+
+.teamErrors h2 {
+	color: white;
+}
+
+.teamErrors .sectionContent {
+	font-weight: bold;
+}
+
+.teamErrors ul {
+	margin: 20px;
+	list-style-type: disc;
+}
+
 .sectionHeader h2 {
 	margin: 0 auto;
 	text-align: center;
+}
+
+.classHeader {
+	background: none;
+}
+
+.classHeader h2 {
+	color: white;
+	min-width: 40%;
+	display: table;
+}
+
+.invalidClassHeaderLabel {
+	font-style: italic;
 }
 
 .classHeader .deleteClassButton {
@@ -209,23 +281,9 @@ footer p {
 	width: 28px;
 }
 
-.invalidClassHeaderLabel {
-	font-style: italic;
-}
-
-#zombieClasses .invalidClassHeaderLabel {
-	color: #aa3333;
-}
-
-#humanClasses .invalidClassHeaderLabel {
-	color: #3333aa;
-}
-
-.playerClass h3 {
-}
-
 .classContent h3 {
-	border-bottom: 1px solid black;
+	color: #aaa;
+	border-bottom: 1px solid #aaa;
 	margin: 20px 0px;
 	-o-transition:.5s;
 	-ms-transition:.5s;
@@ -234,16 +292,7 @@ footer p {
 	transition:.5s;
 }
 
-#zombieClasses .classContent h3:hover {
-	color: #770000;
-}
-
-#humanClasses .classContent h3:hover {
-	color: #000077;
-}
-
 .option {
-	color: black;
 	margin: 20px;
 }
 
@@ -261,43 +310,33 @@ footer p {
 .optionError {
 	float: left;
 	clear: right;
-	color: #990000;
+	color: #cc0000;
 	font-weight: bold;
 }
 
 .optionCaption {
+	color: #555;
 	font-size: 0.8em;
 	font-style: italic;
 	clear: left;
 }
 
-#zombieClasses .optionCaption {
-	color: #770000;
-}
-
-#humanClasses .optionCaption {
-	color: #000077;
-}
-
 .addClassButton {
 	cursor: pointer;
-	background: black;
+	background: #222;
+	border: 1px solid #aaa;
 }
 
 #zombieClasses .addClassButton {
-	border: 3px solid #770000;
+	border: 1px solid #770000;
 }
 
 #humanClasses .addClassButton {
-	border: 3px solid #000077;
+	border: 1px solid #000077;
 }
 
-#zombieClasses .addClassButton h2 {
-	color: #770000;
-}
-
-#humanClasses .addClassButton h2 {
-	color: #000077;
+.addClassButton h2 {
+	color: white;
 }
 
 /* Accordion styles */

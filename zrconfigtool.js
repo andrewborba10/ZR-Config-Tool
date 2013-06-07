@@ -957,12 +957,11 @@ $('img.deleteClassButton').click( function (event) {
 	event.preventDefault();
 });
 
-/* Called by generate config button */
-function generateConfig() {
+$('#submitButton').click(function () {
 	if (validateClasses()) {
 		inputToFile();
 	}
-}
+});
 
 /*
  * Accordion

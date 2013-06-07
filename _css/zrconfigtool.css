@@ -128,11 +128,6 @@ nav ul li:nth-of-type(4):hover ~ #lavalamp {
 
 /* Aside styles */
 
-aside {
-	position: fixed;
-	right: 5%;
-}
-
 
 /* Section styles. */
 
@@ -337,6 +332,27 @@ footer p {
 
 .addClassButton h2 {
 	color: white;
+}
+
+#submitButton {
+	cursor: pointer;
+	width: 300px;
+	background: #222;
+	position: fixed;
+	right: -40px;
+	border: 2px solid #00B4FF;
+	-o-border-radius: 15px;
+	-ms-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 40px;
+	border-radius: 40px;
+}
+
+#submitButton h2 {
+	color: white;
+	text-align: center;
+	line-height: 50px;
+	font-size: 2em;
 }
 
 /* Accordion styles */

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <!--
-File: zrconfigtool.html
+File: playerclasses.html
 Author: Andrew Borba
-Description: Main web page for the ZR Config Tool.
+Description: Playerclasses config tool.
 -->
 
 <html lang='en'>
@@ -11,48 +11,48 @@ Description: Main web page for the ZR Config Tool.
 	<meta charset='UTF-8' /> 
 	<title> ZR Config Tool </title>
 	<link rel='stylesheet' type='text/css' href='_css/reset.css' />
-	<link rel='stylesheet' type='text/css' href='_css/zrconfigtool.css' />
+	<link rel='stylesheet' type='text/css' href='_css/site.css' />
+	<link rel='stylesheet' type='text/css' href='_css/playerclasses.css' />
 </head>
 
 <body>
 	<header>
 		<h1> Zombie:Reloaded Config Tool </h1>
 	</header>
-    
-    <nav>
-        <ul>
-            <li><a href="#"> Home </a></li>
-            <li><a href="#"> Player Classes </a></li>
-            <li><a href="#"> Preset Configs </a></li>
-            <div id="lavalamp"></div>
-        </ul>
+	
+	<nav>
+		<ul>
+			<li><a href="index.html"> Home </a></li>
+			<li><a href="playerclasses.html"> Player Classes </a></li>
+			<li><a href="presets.html"> Preset Configs </a></li>
+			<div id="lavalamp"></div>
+		</ul>
 	</nav>
-        
+		
 	<section id='content'>
-    
 		<div id='submitButton'>
 			<h2> GENERATE </h2>
 		</div>
-        
+		
 		<section id='zombieClasses'>
-        	<div class='teamHeader'>
-                <h1> Zombie Classes </h1>
-            </div>
-            
-            <article class='teamErrors' style='display: none;'>
-                <div class='sectionHeader'>
-                    <h2> Errors </h2>
-                </div>
-                <div class='sectionContent'>
-                    <ul>
-                        <li style='display: none;'> There must be at least one valid, enabled, defaulted, and unrestricted zombie class. </li>
-                        <li style='display: none;'> At least one zombie class contains errors. </li>
-                    </ul>
-                </div>
-            </article>
-                
+			<div class='teamHeader'>
+				<h1> Zombie Classes </h1>
+			</div>
+			
+			<article class='teamErrors' style='display: none;'>
+				<div class='sectionHeader'>
+					<h2> Errors </h2>
+				</div>
+				<div class='sectionContent'>
+					<ul>
+						<li style='display: none;'> There must be at least one valid, enabled, defaulted, and unrestricted zombie class. </li>
+						<li style='display: none;'> At least one zombie class contains errors. </li>
+					</ul>
+				</div>
+			</article>
+			
 			<div class='accordion'>
-				<article id='zombieClassTemplate'>
+				<article id='zombieClassTemplate' class='zombieClass'>
 					<div class='classHeader sectionHeader'>
 						<img src='_images/list_remove.ico' class='deleteClassButton' />
 						<h2 class='invalidClassHeaderLabel'> (New Class) </h2>
@@ -117,7 +117,7 @@ Description: Main web page for the ZR Config Tool.
 								<p class='optionCaption'> Enter a SourceMod-defined group (in sourcemod/configs) to make the class exclusive to this group. </p>
 							</div>
 						</div>
-					
+						
 						<h3 > Model </h3>
 						<div class='classSection'>
 							<div class='option'>
@@ -280,18 +280,18 @@ Description: Main web page for the ZR Config Tool.
 							</div>
 
 							<div class='option'>
-                                <p class='optionLabel'> Jump Height: </p>
-                                <input type='number' class='optionInput' name='jump_height_#' min=0.00 max=5.00 step=0.05 placeholder=1.10 value=1.10 required />
-                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5 </p>
-                                <p class='optionCaption'> Jump height multiplier. </p>
-                            </div>
+								<p class='optionLabel'> Jump Height: </p>
+								<input type='number' class='optionInput' name='jump_height_#' min=0.00 max=5.00 step=0.05 placeholder=1.10 value=1.10 required />
+								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5 </p>
+								<p class='optionCaption'> Jump height multiplier. </p>
+							</div>
 
-                            <div class='option'>
-                                <p class='optionLabel'> Jump Distance: </p>
-                                <input type='number' class='optionInput' name='jump_distance_#' min=0.00 max=5.00 step=0.05 placeholder=1.20 value=1.20 required />
-                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5</p>
-                                <p class='optionCaption'> Jump distance multiplier. </p>
-                            </div>
+							<div class='option'>
+								<p class='optionLabel'> Jump Distance: </p>
+								<input type='number' class='optionInput' name='jump_distance_#' min=0.00 max=5.00 step=0.05 placeholder=1.20 value=1.20 required />
+								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5</p>
+								<p class='optionCaption'> Jump distance multiplier. </p>
+							</div>
 						</div>
 					</div>
 				</article>
@@ -303,23 +303,23 @@ Description: Main web page for the ZR Config Tool.
 
 		<section id='humanClasses'>
 			<div class='teamHeader'>
-                <h1> Human Classes </h1>
-            </div>
-            
-            <article class='teamErrors' style='display: none;'>
-                <div class='sectionHeader'>
-                    <h2> Errors </h2>
-                </div>
-                <div class='sectionContent'>
-                    <ul>
-                        <li style='display: none;'> There must be at least one valid, enabled, defaulted, and unrestricted human class. </li>
-                        <li style='display: none;'> At least one human class contains errors. </li>
-                    </ul>
-                </div>
-            </article>
-            
+				<h1> Human Classes </h1>
+			</div>
+			
+			<article class='teamErrors' style='display: none;'>
+				<div class='sectionHeader'>
+					<h2> Errors </h2>
+				</div>
+				<div class='sectionContent'>
+					<ul>
+						<li style='display: none;'> There must be at least one valid, enabled, defaulted, and unrestricted human class. </li>
+						<li style='display: none;'> At least one human class contains errors. </li>
+					</ul>
+				</div>
+			</article>
+			
 			<div class='accordion'>
-				<article id='humanClassTemplate'>
+				<article id='humanClassTemplate' class='humanClass'>
 					<div class='classHeader sectionHeader'>
 						<img src='_images/list_remove.ico' class='deleteClassButton' />
 						<h2 class='invalidClassHeaderLabel'> (New Class) </h2>
@@ -468,81 +468,81 @@ Description: Main web page for the ZR Config Tool.
 						</div>
 
 						<h3> Player Behavior </h3>
-                        <div class='classSection'>
-                            <div class='option'>
-                                <p class='optionLabel'> Immunity Mode: </p>
-                                <input type='text' class='optionInput' name='immunity_mode_#' placeholder='immunity mode' value='none' maxlength=32 required />
-                                <p class='optionError' style='display: none;'> Please enter a value </p>
-                                <p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
-                            </div>
+						<div class='classSection'>
+							<div class='option'>
+								<p class='optionLabel'> Immunity Mode: </p>
+								<input type='text' class='optionInput' name='immunity_mode_#' placeholder='immunity mode' value='none' maxlength=32 required />
+								<p class='optionError' style='display: none;'> Please enter a value </p>
+								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+							</div>
 
-                            <div class='option'>
-                                <p class='optionLabel'> Immunity Amount: </p>
-                                <input type='number' class='optionInput' name='immunity_amount_#' min=0 max=300 placeholder=0 value=0 required />
-                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 300 </p>
-                                <p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
-                            </div>
+							<div class='option'>
+								<p class='optionLabel'> Immunity Amount: </p>
+								<input type='number' class='optionInput' name='immunity_amount_#' min=0 max=300 placeholder=0 value=0 required />
+								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 300 </p>
+								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+							</div>
 
-                            <div class='option'>
-                                <p class='optionLabel'> Immunity Cooldown: </p>
-                                <input type='number' class='optionInput' name='immunity_cooldown_#' min=0 max=300 placeholder=0 value=0 required />
-                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 300 </p>
-                                <p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
-                            </div>
+							<div class='option'>
+								<p class='optionLabel'> Immunity Cooldown: </p>
+								<input type='number' class='optionInput' name='immunity_cooldown_#' min=0 max=300 placeholder=0 value=0 required />
+								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 300 </p>
+								<p class='optionCaption'> Sets the immunity mode. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+							</div>
 
-                            <div class='option'>
-                                <p class='optionLabel'> No Fall Damage: </p>
-                                <div class='optionInput'>
-                                    <p>
-                                    Yes <input type='radio' name='no_fall_damage_#' value='yes' required /> &nbsp;
-                                    No <input type='radio' name='no_fall_damage_#' value='no' checked />
-                                    </p>
-                                </div>
-                                <p class='optionError' style='display: none;'> Please select an option </p>
-                                <p class='optionCaption'> Enable this to block damage from falling. </p>
-                            </div>
+							<div class='option'>
+								<p class='optionLabel'> No Fall Damage: </p>
+								<div class='optionInput'>
+									<p>
+									Yes <input type='radio' name='no_fall_damage_#' value='yes' required /> &nbsp;
+									No <input type='radio' name='no_fall_damage_#' value='no' checked />
+									</p>
+								</div>
+								<p class='optionError' style='display: none;'> Please select an option </p>
+								<p class='optionCaption'> Enable this to block damage from falling. </p>
+							</div>
 
-                            <div class='option'>
-                                <p class='optionLabel'> Health: </p>
-                                <input type='number' class='optionInput' name='health_#' min=0 max=100000 placeholder=100 value=100 required />
-                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 100000 </p>
-                                <p class='optionCaption'> Starting HP. </p>
-                            </div>
+							<div class='option'>
+								<p class='optionLabel'> Health: </p>
+								<input type='number' class='optionInput' name='health_#' min=0 max=100000 placeholder=100 value=100 required />
+								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 100000 </p>
+								<p class='optionCaption'> Starting HP. </p>
+							</div>
 
-                            <div class='option'>
-                                <p class='optionLabel'> Health Regeneration Interval: </p>
-                                <input type='number' class='optionInput' name='health_regen_interval_#' min=0 max=900 placeholder=0.0 value=0.0 required />
-                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 900 </p>
-                                <p class='optionCaption'> The health regeneration interval, in seconds.  Use 0.0 to disable. </p>
-                            </div>
+							<div class='option'>
+								<p class='optionLabel'> Health Regeneration Interval: </p>
+								<input type='number' class='optionInput' name='health_regen_interval_#' min=0 max=900 placeholder=0.0 value=0.0 required />
+								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 900 </p>
+								<p class='optionCaption'> The health regeneration interval, in seconds.  Use 0.0 to disable. </p>
+							</div>
 
-                            <div class='option'>
-                                <p class='optionLabel'> Health Regeneration Amount: </p>
-                                <input type='number' class='optionInput' name='health_regen_amount_#' min=0 max=10000 placeholder=0 value=0 required />
-                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 10000 </p>
-                                <p class='optionCaption'> How many health points to give per interval.  Regeneration stops when back to starting HP. </p>
-                            </div>
+							<div class='option'>
+								<p class='optionLabel'> Health Regeneration Amount: </p>
+								<input type='number' class='optionInput' name='health_regen_amount_#' min=0 max=10000 placeholder=0 value=0 required />
+								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 10000 </p>
+								<p class='optionCaption'> How many health points to give per interval.  Regeneration stops when back to starting HP. </p>
+							</div>
 
-                            <div class='option'>
-                                <p class='optionLabel'> Speed: </p>
-                                <input type='number' class='optionInput' name='speed_#' min=-200 max=2000 placeholder=300 value=300 required />
-                                <p class='optionError' style='display: none;'> Please enter a numerical value between -200 and 200 </p>
-                                <p class='optionCaption'> Speed of player.  NOTE: This value depends on the speed method defined in the config file. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
-                            </div>
+							<div class='option'>
+								<p class='optionLabel'> Speed: </p>
+								<input type='number' class='optionInput' name='speed_#' min=-200 max=2000 placeholder=300 value=300 required />
+								<p class='optionError' style='display: none;'> Please enter a numerical value between -200 and 200 </p>
+								<p class='optionCaption'> Speed of player.  NOTE: This value depends on the speed method defined in the config file. (See <a href='../zr_manual.htm#3.7.2'>ZR manual</a> for more details) </p>
+							</div>
 
-                            <div class='option'>
-                                <p class='optionLabel'> Jump Height: </p>
-                                <input type='number' class='optionInput' name='jump_height_#' min=0.00 max=5.00 step=0.05 placeholder=1.00 value=1.00 required />
-                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5 </p>
-                                <p class='optionCaption'> Jump height multiplier. </p>
-                            </div>
+							<div class='option'>
+								<p class='optionLabel'> Jump Height: </p>
+								<input type='number' class='optionInput' name='jump_height_#' min=0.00 max=5.00 step=0.05 placeholder=1.00 value=1.00 required />
+								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5 </p>
+								<p class='optionCaption'> Jump height multiplier. </p>
+							</div>
 
-                            <div class='option'>
-                                <p class='optionLabel'> Jump Distance: </p>
-                                <input type='number' class='optionInput' name='jump_distance_#' min=0.00 max=5.00 step=0.05 placeholder=1.00 value=1.00 required />
-                                <p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5</p>
-                                <p class='optionCaption'> Jump distance multiplier. </p>
-                            </div>
+							<div class='option'>
+								<p class='optionLabel'> Jump Distance: </p>
+								<input type='number' class='optionInput' name='jump_distance_#' min=0.00 max=5.00 step=0.05 placeholder=1.00 value=1.00 required />
+								<p class='optionError' style='display: none;'> Please enter a numerical value between 0 and 5</p>
+								<p class='optionCaption'> Jump distance multiplier. </p>
+							</div>
 						</div>
 					</div>
 				</article>
@@ -552,16 +552,16 @@ Description: Main web page for the ZR Config Tool.
 			</article>
 		</section>
 	</section>
-
+	
 	<footer>
-	<p>
-		Copyright &copy; 2013 Andrew Borba
-	</p>
+		<p>
+			Copyright &copy; 2013 Andrew Borba
+		</p>
 	</footer>
 
 	<script src='http://code.jquery.com/jquery-1.9.1.js'></script>
 	<script src='http://code.jquery.com/ui/1.10.3/jquery-ui.js'></script>
 	<script src='https://rawgithub.com/eligrey/FileSaver.js/master/FileSaver.min.js'></script>
-	<script src='zrconfigtool.js'></script>
+	<script src='playerclasses.js'></script>
 </body>
 </html>

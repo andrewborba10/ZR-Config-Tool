@@ -1,4 +1,10 @@
 /**
+ * File: playerclasses.js
+ * Author: Andrew Borba
+ * Description: Javascript file for playerclasses config tool.
+ */
+
+/**
  * Utilities
  */
 
@@ -1010,6 +1016,10 @@ $(document).ready(function() {
 	/* Create one of each class when the page loads */
 	createZombieClass();
 	createHumanClass();
+	
+	/* Hide the templates (we do this here so that the templates are shown on initial page load and then removed after we clone them for performance reasons */
+	$('#zombieClassTemplate').hide();
+	$('#humanClassTemplate').hide();
 	
 	/* Testing */
 });

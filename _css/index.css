@@ -1,0 +1,10 @@
+/**
+ * File: index.css
+ * Author: Andrew Borba
+ * Description: Index page style sheet.
+ */
+ 
+/* Position the lava lamp on the correct entry in the nav menu */
+#lavalamp {
+	left: 12px;
+}

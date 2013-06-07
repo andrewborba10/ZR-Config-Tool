@@ -1,0 +1,10 @@
+/**
+ * File: presets.css
+ * Author: Andrew Borba
+ * Description: Style sheet for the presets web page.
+ */
+ 
+/* Position the lava lamp on the correct entry in the nav menu */
+#lavalamp {
+	left: 300px;
+}

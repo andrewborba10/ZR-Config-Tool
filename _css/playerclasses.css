@@ -1,0 +1,199 @@
+/**
+ * File: playerclasses.css
+ * Author: Andrew Borba
+ * Description: Style sheet for the playerclasses config tool.
+ */
+
+/* Position the lava lamp on the correct entry in the nav menu */
+#lavalamp {
+	left: 140px;
+}
+
+/* Section styles. */
+
+section {
+	min-height: 300px;
+}
+
+section h1 {
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 2em;
+}
+
+section h2 {
+	font-size: 1.6em;
+}
+
+section h3 {
+	font-size: 1.5em;
+}
+
+#zombieClasses .teamHeader h1 {
+	color: #1C1C1C;
+	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #660000;
+	font-family: Impact, Charcoal, sans-serif;
+	letter-spacing: 0.3em;
+}
+
+#humanClasses .teamHeader h1 {
+	color: #1C1C1C;
+	text-shadow: -1px -1px 1px #ccc, 1px 1px 1px #000066;
+	font-family: Impact, Charcoal, sans-serif;
+	letter-spacing: 0.3em;
+}
+
+/* Article styles */
+
+article {
+	margin: 30px;
+}
+
+/* Footer styles */
+
+footer {
+    background: #666;
+	width: 100%;
+}
+
+footer p {
+    font-size: 70%;
+    font-family: tahoma, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 10px 0px;
+}
+
+/* Class article styles */
+
+.zombieClass {
+	border: 1px solid #770000;
+}
+
+.humanClass {
+	border: 1px solid #000077;
+}
+
+.teamErrors {
+	border: 1px solid #cc0000;
+}
+
+.teamErrors h2 {
+	color: white;
+}
+
+.teamErrors .sectionContent {
+	font-weight: bold;
+}
+
+.teamErrors ul {
+	margin: 20px;
+	list-style-type: disc;
+}
+
+.classHeader {
+	background: none;
+}
+
+.classHeader h2 {
+	min-width: 40%;
+	display: table;
+}
+
+.invalidClassHeaderLabel {
+	font-style: italic;
+}
+
+.classHeader .deleteClassButton {
+	cursor: pointer;
+	position: absolute;
+	top: 2px;
+	right: 5px;
+	margin: 0 auto;
+	height: 28px;
+	width: 28px;
+}
+
+.classContent h3 {
+	color: #aaa;
+	border-bottom: 1px solid #aaa;
+	margin: 20px 0px;
+	-o-transition:.5s;
+	-ms-transition:.5s;
+	-moz-transition:.5s;
+	-webkit-transition:.5s;
+	transition:.5s;
+}
+
+.option {
+	margin: 20px;
+}
+
+.optionLabel {
+	font-weight: bold;
+	font-size: 1em;
+	float: left;
+}
+
+.optionInput {
+	float: left;
+	margin: 0px 10px 5px;
+}
+
+.optionError {
+	float: left;
+	clear: right;
+	color: #cc0000;
+	font-weight: bold;
+}
+
+.optionCaption {
+	color: #555;
+	font-size: 0.8em;
+	font-style: italic;
+	clear: left;
+}
+
+.addClassButton {
+	cursor: pointer;
+	background: #222;
+	border: 1px solid #aaa;
+}
+
+#zombieClasses .addClassButton {
+	border: 1px solid #770000;
+}
+
+#humanClasses .addClassButton {
+	border: 1px solid #000077;
+}
+
+.addClassButton h2 {
+	color: white;
+}
+
+#submitButton {
+	cursor: pointer;
+	width: 300px;
+	background: #222;
+	position: fixed;
+	right: -40px;
+	border: 2px solid #00B4FF;
+	-o-border-radius: 15px;
+	-ms-border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 40px;
+	border-radius: 40px;
+}
+
+#submitButton h2 {
+	color: white;
+	text-align: center;
+	line-height: 50px;
+	font-size: 2em;
+}
+
+/* Accordion styles */
+
+.accordion h2, .accordion h3 {
+	cursor: pointer;
+}

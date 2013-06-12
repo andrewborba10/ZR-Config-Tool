@@ -219,7 +219,7 @@ var totalHumanClasses = 0;
 
 function createZombieClass() {
 	/** Clone the template zombie article and change ID */
-	var newClass = $('#zombieClassTemplate').clone(true).attr('id', 'zombieClass' + totalClasses).addClass('playerClass').data('classIndex', totalClasses).appendTo('#zombieClasses .accordion');
+	var newClass = $('#zombieClassTemplate').clone(true).attr('id', 'zombieClass' + totalClasses).addClass('playerClass').show().data('classIndex', totalClasses).appendTo('#zombieClasses .accordion');
 	$('input', newClass).each(function () {
 		$(this).attr('name', $(this).attr('name').replace('#', totalClasses));
 	});
@@ -257,7 +257,7 @@ function createZombieClass() {
 
 function createHumanClass() {
 	/* Clone the template zombie article and change ID */
-	var newClass = $('#humanClassTemplate').clone(true).attr('id', 'humanClass' + totalClasses).addClass('playerClass').data('classIndex', totalClasses).appendTo('#humanClasses .accordion');
+	var newClass = $('#humanClassTemplate').clone(true).attr('id', 'humanClass' + totalClasses).addClass('playerClass').show().data('classIndex', totalClasses).appendTo('#humanClasses .accordion');
 	$('input', newClass).each(function () {
 		$(this).attr('name', $(this).attr('name').replace('#', totalClasses));
 	});
